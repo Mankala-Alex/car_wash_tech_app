@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/controllers/dashboard/dashboard_controller.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
@@ -69,14 +68,16 @@ class Page3View extends GetView<DashboardController> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                const Text(
-                  "Alex Johnson",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                  ),
-                ),
+                Obx(() => Text(
+                      controller.employeeName.value.isEmpty
+                          ? "Technician"
+                          : controller.employeeName.value,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                      ),
+                    )),
                 const SizedBox(height: 8),
                 Container(
                   padding:
@@ -85,19 +86,21 @@ class Page3View extends GetView<DashboardController> {
                     color: const Color(0xffffe7c3),
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.workspace_premium,
+                      const Icon(Icons.workspace_premium,
                           color: Colors.orange, size: 18),
-                      SizedBox(width: 5),
-                      Text(
-                        "Senior Technician",
-                        style: TextStyle(
-                          color: Colors.orange,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      const SizedBox(width: 5),
+                      Obx(() => Text(
+                            controller.designation.value.isEmpty
+                                ? "Technician"
+                                : controller.designation.value.capitalizeFirst!,
+                            style: const TextStyle(
+                              color: Colors.orange,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )),
                     ],
                   ),
                 )

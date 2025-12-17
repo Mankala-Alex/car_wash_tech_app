@@ -11,7 +11,6 @@ class AllTasksView extends GetView<AllTasksController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
-
       appBar: AppBar(
         backgroundColor: AppColors.bgLight,
         elevation: 0,
@@ -29,7 +28,6 @@ class AllTasksView extends GetView<AllTasksController> {
           onPressed: () => Get.back(),
         ),
       ),
-
       body: Obx(() => ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: controller.tasks.length,
@@ -69,19 +67,17 @@ class AllTasksView extends GetView<AllTasksController> {
       decoration: BoxDecoration(
         color: AppColors.bgLight,
         borderRadius: BorderRadius.circular(18),
-       boxShadow: const [
-        BoxShadow(
-          color: Colors.grey,
-          blurRadius: 10,
-          offset: Offset(0, 5),
-        ),
-      ],
-),
-     
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 10,
+            offset: Offset(0, 5),
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           // TIME + STATUS
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,10 +90,9 @@ class AllTasksView extends GetView<AllTasksController> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                 decoration: BoxDecoration(
                   color: Colors.white12,
                   borderRadius: BorderRadius.circular(20),
@@ -152,11 +147,10 @@ class AllTasksView extends GetView<AllTasksController> {
                   ],
                 ),
               ),
-
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  image,
+                child: Image.asset(
+                  "assets/car_tech/profile_avatar.png",
                   width: 70,
                   height: 70,
                   fit: BoxFit.cover,
@@ -170,8 +164,7 @@ class AllTasksView extends GetView<AllTasksController> {
           // LOCATION
           Row(
             children: [
-              const Icon(Icons.location_on,
-                  color: Colors.white24, size: 20),
+              const Icon(Icons.location_on, color: Colors.white24, size: 20),
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
@@ -188,31 +181,30 @@ class AllTasksView extends GetView<AllTasksController> {
           const SizedBox(height: 16),
 
           // BUTTON
-         // BUTTON
-SizedBox(
-  width: double.infinity,
-  child: ElevatedButton(
-    onPressed: () {
-      Get.toNamed(Routes.taskDetails);
-    },
-    style: ElevatedButton.styleFrom(
-      backgroundColor: AppColors.secondaryLight,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 12),
-    ),
-    child: Text(
-      btnText,
-      style: const TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 14,
-      ),
-    ),
-  ),
-)
-
+          // BUTTON
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Get.toNamed(Routes.taskDetails);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.secondaryLight,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              child: Text(
+                btnText,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

@@ -35,6 +35,47 @@ class CarInspectionView extends GetView<CarStatusController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: AppColors.bgBlackLight,
+                  width: 1.5,
+                ),
+              ),
+              child: Row(
+                children: [
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Service Package",
+                            style:
+                                TextStyle(fontSize: 13, color: Colors.black54)),
+                        SizedBox(height: 5),
+                        Text(
+                          "Premium Interior & Exterior",
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      "assets/car_tech/car1.png",
+                      width: 90,
+                      height: 70,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 24),
             const Text(
               "Before Wash",
               style: TextStyle(
@@ -43,32 +84,27 @@ class CarInspectionView extends GetView<CarStatusController> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 8),
             const Text(
               "Capture existing damage or dirt levels before starting.",
               style: TextStyle(color: Colors.black54),
             ),
-
             const SizedBox(height: 16),
-
             Obx(() => SizedBox(
-  height: 160,
-  child: ListView(
-    scrollDirection: Axis.horizontal,
-    children: [
-      ...controller.beforePhotos.asMap().entries.map(
-        (e) => _photoBox(e.value, () => controller.removeBefore(e.key)),
-      ),
-      if (controller.beforePhotos.length < 5)
-        _addPhotoBox(() => controller.pickBeforeImage()),
-    ],
-  ),
-)),
-
-
+                  height: 160,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      ...controller.beforePhotos.asMap().entries.map(
+                            (e) => _photoBox(
+                                e.value, () => controller.removeBefore(e.key)),
+                          ),
+                      if (controller.beforePhotos.length < 5)
+                        _addPhotoBox(() => controller.pickBeforeImage()),
+                    ],
+                  ),
+                )),
             const SizedBox(height: 30),
-
             const Text(
               "After Wash",
               style: TextStyle(
@@ -77,31 +113,26 @@ class CarInspectionView extends GetView<CarStatusController> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 8),
             const Text(
               "Show completed work to verify quality.",
               style: TextStyle(color: Colors.black54),
             ),
-
             const SizedBox(height: 16),
-
-          Obx(() => SizedBox(
-  height: 160,
-  child: ListView(
-    scrollDirection: Axis.horizontal,
-    children: [
-      ...controller.afterPhotos.asMap().entries.map(
-        (e) => _photoBox(e.value, () => controller.removeAfter(e.key)),
-      ),
-      if (controller.afterPhotos.length < 5)
-        _addPhotoBox(() => controller.pickAfterImage()),
-    ],
-  ),
-)),
-
-
-
+            Obx(() => SizedBox(
+                  height: 160,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      ...controller.afterPhotos.asMap().entries.map(
+                            (e) => _photoBox(
+                                e.value, () => controller.removeAfter(e.key)),
+                          ),
+                      if (controller.afterPhotos.length < 5)
+                        _addPhotoBox(() => controller.pickAfterImage()),
+                    ],
+                  ),
+                )),
             const SizedBox(height: 50),
           ],
         ),
@@ -200,4 +231,3 @@ class CarInspectionView extends GetView<CarStatusController> {
     );
   }
 }
-

@@ -22,7 +22,7 @@ class CustLocationView extends GetView<CustLocationController> {
         backgroundColor: AppColors.bgLight,
         elevation: 0,
         title: const Text(
-          "Job Location",
+          "Customer Location",
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,

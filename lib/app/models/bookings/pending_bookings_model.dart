@@ -5,26 +5,26 @@ class Pendingbookingsmodel {
   });
 
   final bool success;
-  final List<Booking> bookings;
+  final List<PendingBooking> bookings;
 
   factory Pendingbookingsmodel.fromJson(Map<String, dynamic> json) {
     return Pendingbookingsmodel(
       success: json["success"] ?? false,
       bookings: json["bookings"] == null
           ? []
-          : List<Booking>.from(
-              json["bookings"]!.map((x) => Booking.fromJson(x))),
+          : List<PendingBooking>.from(
+              json["bookings"]!.map((x) => PendingBooking.fromJson(x))),
     );
   }
 
   Map<String, dynamic> toJson() => {
         "success": success,
-        "bookings": bookings.map((x) => x?.toJson()).toList(),
+        "bookings": bookings.map((x) => x.toJson()).toList(),
       };
 }
 
-class Booking {
-  Booking({
+class PendingBooking {
+  PendingBooking({
     required this.id,
     required this.bookingCode,
     required this.customerId,
@@ -58,8 +58,8 @@ class Booking {
   final dynamic updatedAt;
   final int slotId;
 
-  factory Booking.fromJson(Map<String, dynamic> json) {
-    return Booking(
+  factory PendingBooking.fromJson(Map<String, dynamic> json) {
+    return PendingBooking(
       id: json["id"] ?? "",
       bookingCode: json["booking_code"] ?? "",
       customerId: json["customer_id"] ?? 0,

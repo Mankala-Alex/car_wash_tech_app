@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_new_app/app/models/bookings/accept_booking_model.dart';
 import 'package:my_new_app/app/routes/app_routes.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
 import '../../controllers/dashboard/dashboard_controller.dart';
+import '../../models/bookings/pending_bookings_model.dart';
 
 class Page1View extends GetView<DashboardController> {
   const Page1View({super.key});
@@ -111,145 +113,56 @@ class Page1View extends GetView<DashboardController> {
             ),
 
             const SizedBox(height: 20),
-
-            // -------------------------------
-            // UP NEXT CARD
-            // -------------------------------
-            Container(
-              width: screenWidth,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(18),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 6,
-                    offset: Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  // details
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Up Next",
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600)),
-                        const SizedBox(height: 5),
-                        const Text(
-                          "John Doe - Premium Wash",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 3),
-                        const Text("10:00 AM",
-                            style:
-                                TextStyle(fontSize: 14, color: Colors.black54)),
-                        const SizedBox(height: 10),
-                        TextButton(
-                            onPressed: () {
-                              Get.toNamed(Routes.taskDetails);
-                            },
-                            child: const Text(
-                              "View Details",
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ))
-                      ],
-                    ),
-                  ),
-
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      "assets/car_tech/profile_avatar.png",
-                      width: 80,
-                      height: 80,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // -------------------------------
-            // START DAY BUTTON
-            // -------------------------------
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.toNamed(Routes.alltasks);
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  backgroundColor: AppColors.secondaryLight,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text(
-                  "Start Day",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
             const Text(
-              "All Tasks",
+              "Todays Tasks",
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: Colors.black),
             ),
+            const SizedBox(height: 15),
+            Obx(() {
+              if (controller.todaysTasks.isEmpty) {
+                return const Text(
+                  "No assigned tasks yet",
+                  style: TextStyle(color: Colors.black54),
+                );
+              }
+
+              return Column(
+                children: controller.todaysTasks.map((task) {
+                  return _todayTaskCard(task);
+                }).toList(),
+              );
+            }),
+
+            const SizedBox(height: 20),
+            const Text(
+              "Pending Tasks",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
 
             const SizedBox(height: 15),
 
-            // -------------------------------
-            // TASKS LIST
-            // -------------------------------
-            _taskCard(
-              name: "John Doe",
-              service: "Premium Wash",
-              time: "10:00 AM",
-              vehicle: "SUV",
-              status: "Pending",
-              color: Colors.orange,
-            ),
+            Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-            _taskCard(
-              name: "Jane Smith",
-              service: "Interior Detail",
-              time: "11:30 AM",
-              vehicle: "Sedan",
-              status: "In Progress",
-              color: Colors.blue,
-            ),
+              if (controller.pendingBookings.isEmpty) {
+                return const Text("No pending bookings");
+              }
 
-            _taskCard(
-              name: "Mike Williams",
-              service: "Standard Wash",
-              time: "1:00 PM",
-              vehicle: "Truck",
-              status: "Completed",
-              color: Colors.green,
-            ),
+              return Column(
+                children: controller.pendingBookings.map((booking) {
+                  return _pendingBookingCard(controller, booking);
+                }).toList(),
+              );
+            }),
           ],
         ),
       ),
@@ -294,17 +207,125 @@ class Page1View extends GetView<DashboardController> {
     );
   }
 
-  // ------------------------------------------------------------
-  // TASK CARD (with white + shadow)
-  // ------------------------------------------------------------
-  Widget _taskCard({
-    required String name,
-    required String service,
-    required String time,
-    required String vehicle,
-    required String status,
-    required Color color,
-  }) {
+  Widget _todayTaskCard(AcceptedBooking booking) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: const [
+          BoxShadow(color: Colors.grey, blurRadius: 6, offset: Offset(0, 5)),
+        ],
+      ),
+      child: Column(
+        children: [
+          // STATUS BADGE
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+              decoration: BoxDecoration(
+                color: AppColors.successLight,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                booking.status,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${booking.customerName}",
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "${booking.serviceName}",
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "${booking.vehicle}",
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      booking.scheduledAt != null
+                          ? booking.scheduledAt!
+                              .toLocal()
+                              .toString()
+                              .substring(11, 16)
+                          : "--",
+                      style: const TextStyle(fontSize: 14, color: Colors.red),
+                    ),
+                  ],
+                ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  "assets/car_tech/profile_avatar.png",
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.cover,
+                ),
+              )
+            ],
+          ),
+
+          const SizedBox(height: 16),
+
+          // START WORK BUTTON
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Get.toNamed(
+                  Routes.taskDetails,
+                  arguments: booking,
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.secondaryLight,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Text(
+                "Start Work",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _pendingBookingCard(
+      DashboardController controller, PendingBooking booking) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -312,58 +333,63 @@ class Page1View extends GetView<DashboardController> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 6,
-            offset: Offset(0, 5),
-          ),
+          BoxShadow(color: Colors.grey, blurRadius: 6, offset: Offset(0, 5)),
         ],
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Left content
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold)),
-                Text(service,
-                    style:
-                        const TextStyle(fontSize: 14, color: Colors.black54)),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(Icons.access_time, size: 16, color: Colors.grey),
-                    const SizedBox(width: 5),
-                    Text(time, style: const TextStyle(color: Colors.grey)),
-                    const SizedBox(width: 15),
-                    const Icon(Icons.directions_car,
-                        size: 16, color: Colors.grey),
-                    const SizedBox(width: 5),
-                    Text(vehicle, style: const TextStyle(color: Colors.grey)),
-                  ],
-                ),
-              ],
-            ),
+          Text(
+            booking.customerName,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
-
-          // Status chip
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              status,
-              style: TextStyle(
-                color: color,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+          Text(
+            booking.serviceName,
+            style: const TextStyle(color: Colors.black54),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              const Icon(Icons.access_time, size: 16, color: Colors.grey),
+              const SizedBox(width: 5),
+              Text(
+                booking.scheduledAt != null
+                    ? booking.scheduledAt!
+                        .toLocal()
+                        .toString()
+                        .substring(11, 16)
+                    : "--",
               ),
-            ),
+              const SizedBox(width: 15),
+              const Icon(Icons.directions_car, size: 16, color: Colors.grey),
+              const SizedBox(width: 5),
+              Text(booking.vehicle),
+            ],
+          ),
+          const SizedBox(height: 15),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => controller.rejectBooking(booking),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.red,
+                    side: const BorderSide(color: Colors.red),
+                  ),
+                  child: const Text("Reject"),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => controller.acceptBooking(booking),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.successLight,
+                  ),
+                  child: const Text("Accept"),
+                ),
+              ),
+            ],
           )
         ],
       ),

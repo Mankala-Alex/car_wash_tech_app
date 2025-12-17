@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/helpers/flutter_toast.dart';
+import 'package:my_new_app/app/helpers/shared_preferences.dart';
 import 'package:my_new_app/app/repositories/auth/auth_repository.dart';
 import '../../routes/app_routes.dart';
 
@@ -34,6 +35,36 @@ class LoginController extends GetxController {
       });
 
       if (response.data["success"] == true) {
+        final employee = response.data["employee"];
+        final token = response.data["token"];
+
+        // SAVE EMPLOYEE DETAILS
+        await SharedPrefsHelper.setString(
+          "employeeId",
+          employee["id"] ?? "",
+        );
+
+        await SharedPrefsHelper.setString(
+          "employeeName",
+          "${employee["first_name"] ?? ""} ${employee["last_name"] ?? ""}",
+        );
+
+        await SharedPrefsHelper.setString(
+          "employeeDesignation",
+          employee["designation"] ?? "",
+        );
+
+        await SharedPrefsHelper.setString(
+          "employeeToken",
+          token ?? "",
+        );
+
+        // OPTIONAL: DEBUG CHECK
+        print("EMP ID = ${employee["id"]}");
+        print("EMP NAME = ${employee["first_name"]} ${employee["last_name"]}");
+        print("TOKEN = $token");
+
+        // NAVIGATE
         Get.offAllNamed(Routes.dashboard);
       }
     } on DioException catch (e) {

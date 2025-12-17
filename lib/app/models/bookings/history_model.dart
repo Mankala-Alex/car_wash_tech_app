@@ -1,29 +1,30 @@
-class Acceptbookingmodel {
-  Acceptbookingmodel({
+class Historymodel {
+  Historymodel({
     required this.success,
-    required this.booking,
+    required this.bookings,
   });
 
   final bool success;
-  final AcceptedBooking? booking;
+  final List<HistoryBookingModel> bookings;
 
-  factory Acceptbookingmodel.fromJson(Map<String, dynamic> json) {
-    return Acceptbookingmodel(
+  factory Historymodel.fromJson(Map<String, dynamic> json) {
+    return Historymodel(
       success: json["success"] ?? false,
-      booking: json["booking"] == null
-          ? null
-          : AcceptedBooking.fromJson(json["booking"]),
+      bookings: json["bookings"] == null
+          ? []
+          : List<HistoryBookingModel>.from(
+              json["bookings"]!.map((x) => HistoryBookingModel.fromJson(x))),
     );
   }
 
   Map<String, dynamic> toJson() => {
         "success": success,
-        "booking": booking?.toJson(),
+        "bookings": bookings.map((x) => x?.toJson()).toList(),
       };
 }
 
-class AcceptedBooking {
-  AcceptedBooking({
+class HistoryBookingModel {
+  HistoryBookingModel({
     required this.id,
     required this.bookingCode,
     required this.customerId,
@@ -57,8 +58,8 @@ class AcceptedBooking {
   final DateTime? updatedAt;
   final int slotId;
 
-  factory AcceptedBooking.fromJson(Map<String, dynamic> json) {
-    return AcceptedBooking(
+  factory HistoryBookingModel.fromJson(Map<String, dynamic> json) {
+    return HistoryBookingModel(
       id: json["id"] ?? "",
       bookingCode: json["booking_code"] ?? "",
       customerId: json["customer_id"] ?? 0,

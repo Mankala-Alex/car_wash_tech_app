@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/controllers/auth/login_controller.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
-import '../../routes/app_routes.dart';
 
 class LoginPageView extends GetView<LoginController> {
   const LoginPageView({super.key});

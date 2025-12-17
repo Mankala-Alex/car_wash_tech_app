@@ -27,4 +27,13 @@ class BookingsRepository {
     return await ApiService.post(EndPoints.apipostcompletebookings, requestBody,
         requireAuthToken: false);
   }
+
+  Future<Response> getApiBookingHistory({
+    Map<String, dynamic>? query,
+  }) async {
+    return await ApiService.get(
+      EndPoints.apigetbookinghistory,
+      queryParameters: query,
+    );
+  }
 }

@@ -5,13 +5,14 @@ class Completedwashmodel {
   });
 
   final bool success;
-  final Booking? booking;
+  final CompletedBooking? booking;
 
   factory Completedwashmodel.fromJson(Map<String, dynamic> json) {
     return Completedwashmodel(
       success: json["success"] ?? false,
-      booking:
-          json["booking"] == null ? null : Booking.fromJson(json["booking"]),
+      booking: json["booking"] == null
+          ? null
+          : CompletedBooking.fromJson(json["booking"]),
     );
   }
 
@@ -21,8 +22,8 @@ class Completedwashmodel {
       };
 }
 
-class Booking {
-  Booking({
+class CompletedBooking {
+  CompletedBooking({
     required this.id,
     required this.bookingCode,
     required this.customerId,
@@ -56,8 +57,8 @@ class Booking {
   final DateTime? updatedAt;
   final int slotId;
 
-  factory Booking.fromJson(Map<String, dynamic> json) {
-    return Booking(
+  factory CompletedBooking.fromJson(Map<String, dynamic> json) {
+    return CompletedBooking(
       id: json["id"] ?? "",
       bookingCode: json["booking_code"] ?? "",
       customerId: json["customer_id"] ?? 0,

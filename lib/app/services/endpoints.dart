@@ -6,4 +6,5 @@ class EndPoints {
   static const apipostrejectbookings = 'employee/bookings/reject';
   static const apipostcompletebookings = 'employee/bookings/complete';
   static const apipoststartwashing = 'employee/bookings/start';
+  static const apigetbookinghistory = 'employee/bookings/history';
 }

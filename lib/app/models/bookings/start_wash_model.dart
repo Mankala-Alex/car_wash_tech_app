@@ -5,13 +5,14 @@ class Startwashmodel {
   });
 
   final bool success;
-  final Booking? booking;
+  final StartedBooking? booking;
 
   factory Startwashmodel.fromJson(Map<String, dynamic> json) {
     return Startwashmodel(
       success: json["success"] ?? false,
-      booking:
-          json["booking"] == null ? null : Booking.fromJson(json["booking"]),
+      booking: json["booking"] == null
+          ? null
+          : StartedBooking.fromJson(json["booking"]),
     );
   }
 
@@ -21,8 +22,8 @@ class Startwashmodel {
       };
 }
 
-class Booking {
-  Booking({
+class StartedBooking {
+  StartedBooking({
     required this.id,
     required this.bookingCode,
     required this.customerId,
@@ -56,8 +57,8 @@ class Booking {
   final DateTime? updatedAt;
   final int slotId;
 
-  factory Booking.fromJson(Map<String, dynamic> json) {
-    return Booking(
+  factory StartedBooking.fromJson(Map<String, dynamic> json) {
+    return StartedBooking(
       id: json["id"] ?? "",
       bookingCode: json["booking_code"] ?? "",
       customerId: json["customer_id"] ?? 0,

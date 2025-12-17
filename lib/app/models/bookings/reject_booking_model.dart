@@ -5,13 +5,14 @@ class Rejectbookingmodel {
   });
 
   final bool success;
-  final Booking? booking;
+  final RejectedBooking? booking;
 
   factory Rejectbookingmodel.fromJson(Map<String, dynamic> json) {
     return Rejectbookingmodel(
       success: json["success"] ?? false,
-      booking:
-          json["booking"] == null ? null : Booking.fromJson(json["booking"]),
+      booking: json["booking"] == null
+          ? null
+          : RejectedBooking.fromJson(json["booking"]),
     );
   }
 
@@ -21,8 +22,8 @@ class Rejectbookingmodel {
       };
 }
 
-class Booking {
-  Booking({
+class RejectedBooking {
+  RejectedBooking({
     required this.id,
     required this.bookingCode,
     required this.customerId,
@@ -56,8 +57,8 @@ class Booking {
   final DateTime? updatedAt;
   final int slotId;
 
-  factory Booking.fromJson(Map<String, dynamic> json) {
-    return Booking(
+  factory RejectedBooking.fromJson(Map<String, dynamic> json) {
+    return RejectedBooking(
       id: json["id"] ?? "",
       bookingCode: json["booking_code"] ?? "",
       customerId: json["customer_id"] ?? 0,

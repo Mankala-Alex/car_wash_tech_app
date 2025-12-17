@@ -41,13 +41,14 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
                   const Icon(Icons.person_outline,
                       size: 30, color: Colors.black54),
                   const SizedBox(width: 14),
-                  const Expanded(
-                    child: Text(
-                      "John Doe",
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                  Expanded(
+                      child: Text(
+                    controller.booking.customerName,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
                     ),
-                  ),
+                  )),
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -62,83 +63,75 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
 
             const SizedBox(height: 18),
 
-            // ============================
-            // VEHICLE SECTION
-            // ============================
             _card(
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Vehicle",
+                  const Text(
+                    "Vehicle & Service Details",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
                   ),
-                  SizedBox(height: 12),
+
+                  const SizedBox(height: 16),
+
+                  // VEHICLE
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.directions_car_filled_outlined,
-                          size: 34, color: Colors.black45),
-                      SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _kv("Make/Model", "Toyota Camry"),
-                          SizedBox(height: 6),
-                          _kv("Color", "Midnight Black"),
-                          SizedBox(height: 6),
-                          _kv("License Plate", "7XYZ123"),
-                        ],
-                      )
+                      const Icon(
+                        Icons.directions_car_filled_outlined,
+                        size: 34,
+                        color: Colors.black45,
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _kv("Vehicle", controller.booking.vehicle),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 10),
+                  const Divider(),
+                  const SizedBox(height: 10),
+
+                  // SERVICE
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(
+                        Icons.local_car_wash_outlined,
+                        size: 32,
+                        color: Colors.black45,
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _kv("Service", controller.booking.serviceName),
+                            const SizedBox(height: 6),
+                            _kv(
+                              "Amount",
+                              "₹${controller.booking.amount}",
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
-
-            const SizedBox(height: 18),
-
-            // ============================
-            // SERVICE DETAILS
-            // ============================
-            _card(
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Service Details",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  _kv("Package", "Premium Wash"),
-                  Divider(height: 20),
-                  _kv("Add-ons", "Interior Detailing, Wax"),
-                  Divider(height: 20),
-                  Text(
-                    "Special Instructions",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  SizedBox(height: 6),
-                  Text(
-                    "Please be careful with the front bumper, it has a small scratch.",
-                    style: TextStyle(color: Colors.black54),
-                  )
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 18),
+            const SizedBox(height: 16),
 
             // ============================
             // LOCATION
@@ -204,14 +197,14 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
             // TOTAL PRICE
             // ============================
             _card(
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Total Price",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   Text(
-                    "\$75.00",
+                    "₹${controller.booking.amount}",
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.blue,
@@ -236,7 +229,7 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
           height: 55,
           child: ElevatedButton(
             onPressed: () {
-              Get.toNamed(Routes.custLocation);
+              controller.startWork();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.secondaryLight,
