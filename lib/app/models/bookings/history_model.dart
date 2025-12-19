@@ -19,7 +19,7 @@ class Historymodel {
 
   Map<String, dynamic> toJson() => {
         "success": success,
-        "bookings": bookings.map((x) => x?.toJson()).toList(),
+        "bookings": bookings.map((x) => x.toJson()).toList(),
       };
 }
 

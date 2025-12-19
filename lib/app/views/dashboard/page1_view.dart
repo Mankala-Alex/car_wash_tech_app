@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_new_app/app/models/bookings/accept_booking_model.dart';
+import 'package:my_new_app/app/models/technician_model/booking_model.dart';
 import 'package:my_new_app/app/routes/app_routes.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
 import '../../controllers/dashboard/dashboard_controller.dart';
-import '../../models/bookings/pending_bookings_model.dart';
 
 class Page1View extends GetView<DashboardController> {
   const Page1View({super.key});
@@ -95,17 +94,25 @@ class Page1View extends GetView<DashboardController> {
                   const SizedBox(height: 15),
                   Row(
                     children: [
-                      _summaryBox(title: "TOTAL JOBS", value: "5"),
-                      const SizedBox(width: 12),
-                      _summaryBox(title: "EARNINGS", value: "\$120"),
+                      _summaryBox(
+                          title: "TOTAL JOBS",
+                          value: controller.todaysTotalJobs.value.toString()),
+                      SizedBox(width: 12),
+                      _summaryBox(
+                          title: "EARNINGS",
+                          value: "₹${controller.todaysEarnings.value}")
                     ],
                   ),
                   const SizedBox(height: 12),
                   Row(
                     children: [
-                      _summaryBox(title: "PENDING", value: "2"),
-                      const SizedBox(width: 12),
-                      _summaryBox(title: "COMPLETED", value: "3"),
+                      _summaryBox(
+                          title: "PENDING",
+                          value: controller.todaysPending.value.toString()),
+                      SizedBox(width: 12),
+                      _summaryBox(
+                          title: "COMPLETED",
+                          value: controller.todaysCompleted.value.toString())
                     ],
                   ),
                 ],
@@ -123,9 +130,21 @@ class Page1View extends GetView<DashboardController> {
             const SizedBox(height: 15),
             Obx(() {
               if (controller.todaysTasks.isEmpty) {
-                return const Text(
-                  "No assigned tasks yet",
-                  style: TextStyle(color: Colors.black54),
+                return Center(
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        "assets/no_data/no_tasks.png",
+                        height: 300,
+                        width: 300,
+                      ),
+                      const Text("No tasks available.",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ),
                 );
               }
 
@@ -154,7 +173,22 @@ class Page1View extends GetView<DashboardController> {
               }
 
               if (controller.pendingBookings.isEmpty) {
-                return const Text("No pending bookings");
+                return Center(
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        "assets/no_data/no_pending_tasks.jpg",
+                        height: 300,
+                        width: 300,
+                      ),
+                      const Text("No pending tasks available.",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                );
               }
 
               return Column(
@@ -207,7 +241,7 @@ class Page1View extends GetView<DashboardController> {
     );
   }
 
-  Widget _todayTaskCard(AcceptedBooking booking) {
+  Widget _todayTaskCard(BookingModel booking) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -249,19 +283,19 @@ class Page1View extends GetView<DashboardController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${booking.customerName}",
+                      booking.customerName,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      "${booking.serviceName}",
+                      booking.serviceName,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      "${booking.vehicle}",
+                      booking.vehicle,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w500),
                     ),
@@ -298,8 +332,8 @@ class Page1View extends GetView<DashboardController> {
             child: ElevatedButton(
               onPressed: () {
                 Get.toNamed(
-                  Routes.taskDetails,
-                  arguments: booking,
+                  Routes.custLocation,
+                  arguments: booking, // type = BookingModel
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -325,7 +359,7 @@ class Page1View extends GetView<DashboardController> {
   }
 
   Widget _pendingBookingCard(
-      DashboardController controller, PendingBooking booking) {
+      DashboardController controller, BookingModel booking) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),

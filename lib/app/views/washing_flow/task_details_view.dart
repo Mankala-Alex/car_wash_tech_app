@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/controllers/washing_flow/task_details_controller.dart';
-import 'package:my_new_app/app/routes/app_routes.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
 
 class TaskDetailsView extends GetView<TaskDetailsController> {
@@ -200,12 +199,12 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Total Price",
+                  const Text("Total Price",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   Text(
                     "₹${controller.booking.amount}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       color: Colors.blue,
                       fontWeight: FontWeight.bold,

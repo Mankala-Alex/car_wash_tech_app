@@ -56,6 +56,7 @@ flutter:
     - assets/
     - assets/app_icon/
     - assets/car_tech/
+    - assets/no_data/
 
   
 

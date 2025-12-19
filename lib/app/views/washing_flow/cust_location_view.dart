@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/controllers/washing_flow/cust_location_controller.dart';
-import 'package:my_new_app/app/routes/app_routes.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 
@@ -177,10 +176,8 @@ class CustLocationView extends GetView<CustLocationController> {
                     size: 30,
                   ),
                   onSubmit: () async {
-                    // Your arrival logic here
-                    // Example:
-                    // await controller.markArrived();
-                    Get.toNamed(Routes.preTaskChecklist);
+                    await controller.markArrived();
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Arrived confirmed")),
                     );

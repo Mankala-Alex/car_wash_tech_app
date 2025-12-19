@@ -2,11 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/controllers/washing_flow/car_status_controller.dart';
-import 'package:my_new_app/app/routes/app_routes.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
 
-class CarInspectionView extends GetView<CarStatusController> {
-  const CarInspectionView({super.key});
+class CarStatusView extends GetView<CarStatusController> {
+  const CarStatusView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +74,7 @@ class CarInspectionView extends GetView<CarStatusController> {
                 ],
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             const Text(
               "Before Wash",
               style: TextStyle(
@@ -142,26 +141,28 @@ class CarInspectionView extends GetView<CarStatusController> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
         child: SizedBox(
-          height: 55,
-          child: ElevatedButton(
-            onPressed: () {
-              Get.toNamed(Routes.paymentScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.secondaryLight,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
+            height: 55,
+            child: ElevatedButton(
+              onPressed: () {
+                controller.completeBooking();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.secondaryLight,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
               ),
-            ),
-            child: const Text(
-              "Continue",
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ),
+              child: Obx(() => controller.isLoading.value
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text(
+                      "Continue",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    )),
+            )),
       ),
     );
   }

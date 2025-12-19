@@ -9,7 +9,7 @@ import 'package:my_new_app/app/bindings/washing_flow/task_completed_bindings.dar
 import 'package:my_new_app/app/bindings/washing_flow/task_details_bindings.dart';
 import 'package:my_new_app/app/views/dashboard/dashboard_view.dart';
 import 'package:my_new_app/app/views/washing_flow/all_tasks_view.dart';
-import 'package:my_new_app/app/views/washing_flow/car_inspection_view.dart';
+import 'package:my_new_app/app/views/washing_flow/car_status_view.dart';
 import 'package:my_new_app/app/views/washing_flow/cust_location_view.dart';
 import 'package:my_new_app/app/views/washing_flow/payment_screen_view.dart';
 import 'package:my_new_app/app/views/washing_flow/pre_task_checklist_view.dart';
@@ -68,7 +68,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.custLocation,
-      page: () =>  CustLocationView(),
+      page: () => CustLocationView(),
       binding: CustLocationBindings(),
     ),
     GetPage(
@@ -83,7 +83,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.carstatus,
-      page: () => const CarInspectionView(),
+      page: () => const CarStatusView(),
       binding: CarStatusBindings(),
     ),
     GetPage(

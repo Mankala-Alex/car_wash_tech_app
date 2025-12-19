@@ -28,6 +28,11 @@ class BookingsRepository {
         requireAuthToken: false);
   }
 
+  Future<Response> postArrivedBooking(requestBody) async {
+    return await ApiService.post(EndPoints.apipostarrivedbookings, requestBody,
+        requireAuthToken: false);
+  }
+
   Future<Response> getApiBookingHistory({
     Map<String, dynamic>? query,
   }) async {
