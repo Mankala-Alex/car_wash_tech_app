@@ -152,38 +152,6 @@ class Page3View extends GetView<DashboardController> {
 
             const SizedBox(height: 25),
 
-            // -----------------------------
-            // EDIT PROFILE BUTTON
-            // -----------------------------
-            SizedBox(
-              width: double.infinity,
-              height: 55,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.edit, color: Colors.white),
-                    SizedBox(width: 10),
-                    Text(
-                      "Edit Profile",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
             const SizedBox(height: 20),
 
             // -----------------------------

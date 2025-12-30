@@ -67,6 +67,7 @@ class CarStatusController extends GetxController {
 
       successToast("Task Completed Successfully!");
       final dashboard = Get.find<DashboardController>();
+      await dashboard.fetchPendingBookings();
       await dashboard.fetchBookingHistory();
       dashboard.calculateSummary();
       // Navigate to payment or success page

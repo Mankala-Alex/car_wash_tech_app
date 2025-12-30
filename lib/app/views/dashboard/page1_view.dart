@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_new_app/app/custome_widgets/custome_confirmation_dialog.dart';
 import 'package:my_new_app/app/models/technician_model/booking_model.dart';
 import 'package:my_new_app/app/routes/app_routes.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
@@ -66,56 +67,58 @@ class Page1View extends GetView<DashboardController> {
             // -------------------------------
             // SUMMARY CARD SECTION
             // -------------------------------
-            Container(
-              width: screenWidth,
-              padding: const EdgeInsets.all(18),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 6,
-                    offset: Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Today's Summary",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+            Obx(
+              () => Container(
+                width: screenWidth,
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 6,
+                      offset: Offset(0, 5),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      _summaryBox(
-                          title: "TOTAL JOBS",
-                          value: controller.todaysTotalJobs.value.toString()),
-                      SizedBox(width: 12),
-                      _summaryBox(
-                          title: "EARNINGS",
-                          value: "₹${controller.todaysEarnings.value}")
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      _summaryBox(
-                          title: "PENDING",
-                          value: controller.todaysPending.value.toString()),
-                      SizedBox(width: 12),
-                      _summaryBox(
-                          title: "COMPLETED",
-                          value: controller.todaysCompleted.value.toString())
-                    ],
-                  ),
-                ],
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Today's Summary",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    Row(
+                      children: [
+                        _summaryBox(
+                            title: "TOTAL JOBS",
+                            value: controller.todaysTotalJobs.value.toString()),
+                        const SizedBox(width: 12),
+                        _summaryBox(
+                            title: "EARNINGS",
+                            value: "₹${controller.todaysEarnings.value}")
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        _summaryBox(
+                            title: "PENDING",
+                            value: controller.todaysPending.value.toString()),
+                        const SizedBox(width: 12),
+                        _summaryBox(
+                            title: "COMPLETED",
+                            value: controller.todaysCompleted.value.toString())
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
 
@@ -405,12 +408,31 @@ class Page1View extends GetView<DashboardController> {
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () => controller.rejectBooking(booking),
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.red,
                     side: const BorderSide(color: Colors.red),
                   ),
-                  child: const Text("Reject"),
+                  onPressed: () {
+                    Get.dialog(
+                      CustomConfirmationDialog(
+                        header: "Reject Booking",
+                        body: "Are you sure you want to reject this booking?",
+                        yesText: "Yes, Reject",
+                        noText: "No",
+                        onYes: () async {
+                          Get.back(); // close dialog first
+                          await controller.rejectBooking(booking);
+                        },
+                        onNo: () {
+                          Get.back(); // close dialog
+                        },
+                      ),
+                      barrierDismissible: false, // user must choose Yes/No
+                    );
+                  },
+                  child: const Text(
+                    "Reject",
+                    style: TextStyle(color: AppColors.errorLight),
+                  ),
                 ),
               ),
               const SizedBox(width: 12),

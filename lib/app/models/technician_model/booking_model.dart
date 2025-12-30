@@ -1,10 +1,10 @@
 class BookingModel {
   final String id;
   final String bookingCode;
-  final int customerId;
+  final String customerId;
   final String customerName;
   final String vehicle;
-  final int serviceId;
+  final String serviceId;
   final String serviceName;
   final DateTime? scheduledAt;
   final String washerId;
@@ -43,10 +43,10 @@ class BookingModel {
     return BookingModel(
       id: json["id"] ?? "",
       bookingCode: json["booking_code"] ?? "",
-      customerId: json["customer_id"] ?? 0,
+      customerId: json["customer_id"]?.toString() ?? "",
       customerName: json["customer_name"] ?? "",
       vehicle: json["vehicle"] ?? "",
-      serviceId: json["service_id"] ?? 0,
+      serviceId: json["service_id"]?.toString() ?? "",
       serviceName: json["service_name"] ?? "",
       scheduledAt: DateTime.tryParse(json["scheduled_at"] ?? ""),
       washerId: json["washer_id"]?.toString() ?? "",

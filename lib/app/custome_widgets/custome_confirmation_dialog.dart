@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../config/constants.dart';
 import '../theme/app_theme.dart';
 
 class CustomConfirmationDialog extends StatelessWidget {
@@ -38,24 +37,36 @@ class CustomConfirmationDialog extends StatelessWidget {
       actions: <Widget>[
         Visibility(
           visible: isCancel ?? true,
-          child: TextButton(
-            onPressed: onNo ?? Get.back,
-            child: Text(
-              noText,
-              style: TextStyle(
-                color: Constants.primaryColor,
-                fontWeight: FontWeight.bold,
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.errorLight),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: TextButton(
+              onPressed: onNo ?? Get.back,
+              child: Text(
+                noText,
+                style: const TextStyle(
+                  color: AppColors.errorLight,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
         ),
-        TextButton(
-          onPressed: onYes,
-          child: Text(
-            yesText,
-            style: TextStyle(
-              color: Constants.primaryColor,
-              fontWeight: FontWeight.w600,
+        Container(
+          decoration: BoxDecoration(
+            color: AppColors.errorLight,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: TextButton(
+            onPressed: onYes,
+            child: Text(
+              yesText,
+              style: const TextStyle(
+                color: AppColors.textWhiteLight,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),

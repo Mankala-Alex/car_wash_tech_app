@@ -32,53 +32,57 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
-    loadEmployeeData();
-    fetchPendingBookings().then((_) => calculateSummary());
-    fetchBookingHistory().then((_) => calculateSummary());
     super.onInit();
+    loadEmployeeData();
+    initData();
+  }
+
+  Future<void> initData() async {
+    await fetchPendingBookings(); // wait for API 1
+    await fetchBookingHistory(); // wait for API 2
+    calculateSummary(); // now calculate correctly
+  }
+
+  bool isToday(DateTime? date) {
+    if (date == null) return false;
+    final now = DateTime.now();
+    return date.year == now.year &&
+        date.month == now.month &&
+        date.day == now.day;
   }
 
   void calculateSummary() {
-    DateTime today = DateTime.now();
-    String todayDate = "${today.year}-${today.month}-${today.day}";
-
-    int total = 0;
     int pending = 0;
+    int accepted = 0;
     int completed = 0;
     int earnings = 0;
 
-    // PENDING (from pendingBookings)
+    /// PENDING TODAY (created today)
     for (var booking in pendingBookings) {
-      if (booking.scheduledAt == null) continue;
-
-      String d =
-          "${booking.scheduledAt!.year}-${booking.scheduledAt!.month}-${booking.scheduledAt!.day}";
-
-      if (d == todayDate) {
+      if (isToday(booking.createdAt)) {
         pending++;
-        total++;
       }
     }
 
-    // COMPLETED (from historyBookings)
+    /// ACCEPTED TODAY (status became ASSIGNED today)
     for (var booking in historyBookings) {
-      if (booking.scheduledAt == null) continue;
+      if (booking.status == "ASSIGNED" && isToday(booking.updatedAt)) {
+        accepted++;
+      }
+    }
 
-      String d =
-          "${booking.scheduledAt!.year}-${booking.scheduledAt!.month}-${booking.scheduledAt!.day}";
-
-      if (d == todayDate && booking.status == "COMPLETED") {
+    /// COMPLETED TODAY + EARNINGS
+    for (var booking in historyBookings) {
+      if (booking.status == "COMPLETED" && isToday(booking.updatedAt)) {
         completed++;
-        total++;
         earnings += int.tryParse(booking.amount) ?? 0;
       }
     }
 
-    // UPDATE UI
-    todaysTotalJobs.value = total;
     todaysPending.value = pending;
     todaysCompleted.value = completed;
     todaysEarnings.value = earnings;
+    todaysTotalJobs.value = pending + accepted + completed;
   }
 
   Future<void> loadEmployeeData() async {
