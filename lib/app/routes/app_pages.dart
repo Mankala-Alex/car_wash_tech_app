@@ -1,5 +1,6 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:my_new_app/app/bindings/dashboard/dashboard_bindings.dart';
+import 'package:my_new_app/app/bindings/profile/change_password_binding.dart';
 import 'package:my_new_app/app/bindings/washing_flow/all_tasks_bindings.dart';
 import 'package:my_new_app/app/bindings/washing_flow/car_status_bindings.dart';
 import 'package:my_new_app/app/bindings/washing_flow/cust_location_bindings.dart';
@@ -8,6 +9,7 @@ import 'package:my_new_app/app/bindings/washing_flow/pre_task_checklist_bindings
 import 'package:my_new_app/app/bindings/washing_flow/task_completed_bindings.dart';
 import 'package:my_new_app/app/bindings/washing_flow/task_details_bindings.dart';
 import 'package:my_new_app/app/views/dashboard/dashboard_view.dart';
+import 'package:my_new_app/app/views/profile/change_password_view.dart';
 import 'package:my_new_app/app/views/washing_flow/all_tasks_view.dart';
 import 'package:my_new_app/app/views/washing_flow/car_status_view.dart';
 import 'package:my_new_app/app/views/washing_flow/cust_location_view.dart';
@@ -95,6 +97,11 @@ class AppPages {
       name: Routes.taskCompleted,
       page: () => const TaskCompletedView(),
       binding: TaskCompletedBindings(),
+    ),
+    GetPage(
+      name: Routes.changepassword,
+      page: () => const ChangePasswordView(),
+      binding: ChangePasswordBinding(),
     ),
   ];
 }

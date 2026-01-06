@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/controllers/dashboard/dashboard_controller.dart';
+import 'package:my_new_app/app/custome_widgets/custome_confirmation_dialog.dart';
+import 'package:my_new_app/app/routes/app_routes.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
 
 class Page3View extends GetView<DashboardController> {
@@ -157,9 +159,34 @@ class Page3View extends GetView<DashboardController> {
             // -----------------------------
             // SETTINGS OPTIONS
             // -----------------------------
-            _settingsTile("Notifications"),
-            _settingsTile("Change Password"),
-            _settingsTile("Log Out", isLogout: true),
+
+            _settingsTile("Change Language"),
+            const Divider(),
+            _settingsTile(
+              "Change Password",
+              onTap: () {
+                Get.toNamed(Routes.changepassword);
+              },
+            ),
+
+            _settingsTile(
+              "Log Out",
+              isLogout: true,
+              onTap: () {
+                Get.dialog(
+                  CustomConfirmationDialog(
+                    header: "Logout",
+                    body: "Are you sure you want to logout?",
+                    yesText: "Logout",
+                    onYes: () {
+                      Get.back();
+                      controller.logout();
+                    },
+                  ),
+                  barrierDismissible: false,
+                );
+              },
+            ),
 
             const SizedBox(height: 40),
           ],
@@ -242,9 +269,14 @@ class Page3View extends GetView<DashboardController> {
   // -----------------------------------------
   // COMPONENT: SETTINGS TILE
   // -----------------------------------------
-  Widget _settingsTile(String title, {bool isLogout = false}) {
+  Widget _settingsTile(
+    String title, {
+    bool isLogout = false,
+    VoidCallback? onTap,
+  }) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
+      onTap: onTap,
       title: Text(
         title,
         style: TextStyle(

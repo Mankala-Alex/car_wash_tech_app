@@ -13,5 +13,6 @@ abstract class Routes {
   static const taskDetails = '/task_details_view';
   static const carstatus = '/car_status_view';
   static const paymentScreen = '/payment_screen_view';
-  static const taskCompleted = '/task_completed_view';   
+  static const taskCompleted = '/task_completed_view';
+  static const changepassword = '/change_password_view';
 }

@@ -2,11 +2,14 @@ import 'package:get/get.dart';
 import 'package:my_new_app/app/helpers/shared_preferences.dart';
 import 'package:my_new_app/app/helpers/flutter_toast.dart';
 import 'package:my_new_app/app/models/technician_model/booking_model.dart';
+import 'package:my_new_app/app/repositories/auth/auth_repository.dart';
 import 'package:my_new_app/app/repositories/bookings/bookings_repository.dart';
 import 'package:my_new_app/app/models/bookings/history_model.dart';
+import 'package:my_new_app/app/routes/app_routes.dart';
 
 class DashboardController extends GetxController {
   final BookingsRepository repository = BookingsRepository();
+  final AuthRepository authRepo = AuthRepository();
 
   var todaysTotalJobs = 0.obs;
   var todaysPending = 0.obs;
@@ -223,5 +226,23 @@ class DashboardController extends GetxController {
     }
 
     return total.toString();
+  }
+
+  Future<void> logout() async {
+    try {
+      // 1️⃣ Call logout API (best effort)
+      await authRepo.logoutTechnician();
+    } catch (e) {
+      print("Logout API error: $e");
+    } finally {
+      // 2️⃣ Clear local storage
+      await SharedPrefsHelper.clearAll();
+
+      // 3️⃣ Reset GetX
+      Get.deleteAll(force: true);
+
+      // 4️⃣ Go to login
+      Get.offAllNamed(Routes.login);
+    }
   }
 }

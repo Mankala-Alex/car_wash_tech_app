@@ -8,4 +8,12 @@ class AuthRepository {
     return await ApiService.post(EndPoints.apipostlogin, requestBody,
         requireAuthToken: false);
   }
+
+  Future<void> logoutTechnician() async {
+    return ApiService.post(
+      EndPoints.apiTechnicianLogout,
+      {}, // empty body
+      requireAuthToken: true,
+    );
+  }
 }

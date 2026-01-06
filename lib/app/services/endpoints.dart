@@ -9,4 +9,6 @@ class EndPoints {
   static const apipostarrived = 'employee/bookings/arrived';
   static const apigetbookinghistory = 'employee/bookings/history';
   static const apipostarrivedbookings = 'employee/bookings/arrived';
+  static const apiPostChangePassword = 'employee/change-password';
+  static const apiTechnicianLogout = 'employee/logout';
 }
