@@ -40,6 +40,8 @@ class HistoryBookingModel {
     required this.createdAt,
     required this.updatedAt,
     required this.slotId,
+    required this.beforeImages,
+    required this.afterImages,
   });
 
   final String id;
@@ -58,6 +60,10 @@ class HistoryBookingModel {
   final DateTime? updatedAt;
   final int slotId;
 
+  /// ✅ NEW
+  final List<String> beforeImages;
+  final List<String> afterImages;
+
   factory HistoryBookingModel.fromJson(Map<String, dynamic> json) {
     return HistoryBookingModel(
       id: json["id"] ?? "",
@@ -71,10 +77,18 @@ class HistoryBookingModel {
       washerId: json["washer_id"] ?? "",
       washerName: json["washer_name"] ?? "",
       status: json["status"] ?? "",
-      amount: json["amount"] ?? "",
+      amount: json["amount"]?.toString() ?? "",
       createdAt: DateTime.tryParse(json["created_at"] ?? ""),
       updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
       slotId: json["slot_id"] ?? 0,
+
+      /// ✅ IMAGE LISTS (SAFE PARSING)
+      beforeImages: json["before_images"] == null
+          ? []
+          : List<String>.from(json["before_images"]),
+      afterImages: json["after_images"] == null
+          ? []
+          : List<String>.from(json["after_images"]),
     );
   }
 
@@ -94,5 +108,7 @@ class HistoryBookingModel {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "slot_id": slotId,
+        "before_images": beforeImages,
+        "after_images": afterImages,
       };
 }

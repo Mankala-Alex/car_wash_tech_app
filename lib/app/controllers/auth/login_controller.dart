@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/helpers/flutter_toast.dart';
+import 'package:my_new_app/app/helpers/secure_store.dart';
 import 'package:my_new_app/app/helpers/shared_preferences.dart';
 import 'package:my_new_app/app/repositories/auth/auth_repository.dart';
 import '../../routes/app_routes.dart';
@@ -54,9 +55,9 @@ class LoginController extends GetxController {
           employee["designation"] ?? "",
         );
 
-        await SharedPrefsHelper.setString(
-          "employeeToken",
-          token ?? "",
+        await FlutterSecureStore().storeSingleValue(
+          SharedPrefsHelper.accessToken,
+          token,
         );
 
         // OPTIONAL: DEBUG CHECK

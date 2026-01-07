@@ -1,23 +1,30 @@
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:my_new_app/app/controllers/dashboard/dashboard_controller.dart';
+import 'package:my_new_app/app/helpers/flutter_toast.dart';
 import 'package:my_new_app/app/helpers/shared_preferences.dart';
 import 'package:my_new_app/app/models/bookings/completed_wash_model.dart';
 import 'package:my_new_app/app/models/technician_model/booking_model.dart';
 import 'package:my_new_app/app/repositories/bookings/bookings_repository.dart';
-import 'package:my_new_app/app/helpers/flutter_toast.dart';
+import 'package:my_new_app/app/repositories/bookings/booking_Image_repository.dart';
 import 'package:my_new_app/app/routes/app_routes.dart';
 
 class CarStatusController extends GetxController {
   final ImagePicker picker = ImagePicker();
-  final BookingsRepository repository = BookingsRepository();
 
-  late BookingModel booking; // 🔥 coming from task_details startWork()
-  var beforePhotos = <File>[].obs;
-  var afterPhotos = <File>[].obs;
+  final BookingsRepository bookingsRepo = BookingsRepository();
+  final BookingImageRepository imageRepo = BookingImageRepository();
 
-  var isLoading = false.obs;
+  late BookingModel booking;
+
+  final beforePhotos = <File>[].obs;
+  final afterPhotos = <File>[].obs;
+
+  final isLoading = false.obs;
 
   @override
   void onInit() {
@@ -25,59 +32,145 @@ class CarStatusController extends GetxController {
     super.onInit();
   }
 
-  // ---------------------- IMAGE PICKERS ----------------------
-  Future<void> pickBeforeImage() async {
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      beforePhotos.add(File(image.path));
+  // ================= IMAGE PICK =================
+
+  Future<void> _pickImage({
+    required ImageSource source,
+    required bool isBefore,
+  }) async {
+    final XFile? image = await picker.pickImage(
+      source: source,
+      imageQuality: 80,
+    );
+
+    if (image == null) return;
+
+    final file = File(image.path);
+
+    if (isBefore) {
+      beforePhotos.add(file);
+    } else {
+      afterPhotos.add(file);
     }
   }
 
-  Future<void> pickAfterImage() async {
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      afterPhotos.add(File(image.path));
-    }
+  void showImageSourceSheet({required bool isBefore}) {
+    Get.bottomSheet(
+      Container(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text("Camera"),
+              onTap: () {
+                Get.back();
+                _pickImage(
+                  source: ImageSource.camera,
+                  isBefore: isBefore,
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text("Gallery"),
+              onTap: () {
+                Get.back();
+                _pickImage(
+                  source: ImageSource.gallery,
+                  isBefore: isBefore,
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void removeBefore(int index) => beforePhotos.removeAt(index);
   void removeAfter(int index) => afterPhotos.removeAt(index);
 
-  // ---------------------- COMPLETE BOOKING API ----------------------
-  Future<void> completeBooking() async {
+  // ================= UPLOAD HELPERS =================
+
+  Future<bool> uploadBeforeImages() async {
+    if (beforePhotos.isEmpty) return true;
+
+    final empId = await SharedPrefsHelper.getString("employeeId");
+
     try {
-      isLoading(true);
+      await imageRepo.uploadImages(
+        bookingId: booking.id,
+        employeeId: empId,
+        imageType: "BEFORE",
+        images: beforePhotos,
+      );
+      return true;
+    } catch (e) {
+      final errorMsg = 'Before images: ${e.toString()}';
+      errorToast(errorMsg);
+      return false;
+    }
+  }
 
-      final empId = await SharedPrefsHelper.getString("employeeId");
+  Future<bool> uploadAfterImages() async {
+    if (afterPhotos.isEmpty) return true;
 
-      final Map<String, dynamic> payload = {
-        "booking_id": booking.id,
-        "employee_id": empId,
-        "before_images": [], // you can upload images later
-        "after_images": [],
-      };
+    final empId = await SharedPrefsHelper.getString("employeeId");
 
-      final response = await repository.postCompleteBooking(payload);
-      final model = Completedwashmodel.fromJson(response.data);
+    try {
+      await imageRepo.uploadImages(
+        bookingId: booking.id,
+        employeeId: empId,
+        imageType: "AFTER",
+        images: afterPhotos,
+      );
+      return true;
+    } catch (e) {
+      final errorMsg = 'After images: ${e.toString()}';
+      errorToast(errorMsg);
+      return false;
+    }
+  }
 
-      if (model.booking == null) {
-        errorToast("Failed to complete booking");
+  // ================= CONTINUE TO PAYMENT (UPLOAD IMAGES ONLY) =================
+  /// This method is called from the Continue button on Car Inspection screen.
+  /// It ONLY uploads the before and after images, then navigates to Payment screen.
+  /// The booking completion happens from the Payment screen, NOT here.
+  Future<void> continueToPayment() async {
+    if (isLoading.value) return;
+
+    isLoading(true);
+
+    try {
+      if (beforePhotos.isEmpty || afterPhotos.isEmpty) {
+        errorToast("Please upload before & after images");
         return;
       }
 
-      successToast("Task Completed Successfully!");
-      final dashboard = Get.find<DashboardController>();
-      await dashboard.fetchPendingBookings();
-      await dashboard.fetchBookingHistory();
-      dashboard.calculateSummary();
-      // Navigate to payment or success page
-      Get.offAllNamed(
-        Routes.paymentScreen,
-        arguments: model.booking,
-      );
+      final beforeOk = await uploadBeforeImages();
+      if (!beforeOk) {
+        errorToast("Failed to upload before images");
+        return;
+      }
+
+      final afterOk = await uploadAfterImages();
+      if (!afterOk) {
+        errorToast("Failed to upload after images");
+        return;
+      }
+
+      successToast("Images uploaded successfully!");
+      Get.toNamed(Routes.paymentScreen, arguments: booking);
     } catch (e) {
-      errorToast("Failed to complete booking");
+      errorToast("Something went wrong");
     } finally {
+      // ✅ THIS ALWAYS RUNS
       isLoading(false);
     }
   }

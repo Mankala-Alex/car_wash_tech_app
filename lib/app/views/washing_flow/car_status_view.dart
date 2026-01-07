@@ -99,7 +99,8 @@ class CarStatusView extends GetView<CarStatusController> {
                                 e.value, () => controller.removeBefore(e.key)),
                           ),
                       if (controller.beforePhotos.length < 5)
-                        _addPhotoBox(() => controller.pickBeforeImage()),
+                        _addPhotoBox(() =>
+                            controller.showImageSourceSheet(isBefore: true))
                     ],
                   ),
                 )),
@@ -128,7 +129,8 @@ class CarStatusView extends GetView<CarStatusController> {
                                 e.value, () => controller.removeAfter(e.key)),
                           ),
                       if (controller.afterPhotos.length < 5)
-                        _addPhotoBox(() => controller.pickAfterImage()),
+                        _addPhotoBox(() =>
+                            controller.showImageSourceSheet(isBefore: false))
                     ],
                   ),
                 )),
@@ -140,19 +142,23 @@ class CarStatusView extends GetView<CarStatusController> {
       // Submit Button
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
-        child: SizedBox(
+        child: Obx(() {
+          final canContinue = controller.beforePhotos.isNotEmpty &&
+              controller.afterPhotos.isNotEmpty &&
+              !controller.isLoading.value;
+
+          return SizedBox(
             height: 55,
             child: ElevatedButton(
-              onPressed: () {
-                controller.completeBooking();
-              },
+              onPressed:
+                  canContinue ? () => controller.continueToPayment() : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.secondaryLight,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
                 ),
               ),
-              child: Obx(() => controller.isLoading.value
+              child: controller.isLoading.value
                   ? const CircularProgressIndicator(color: Colors.white)
                   : const Text(
                       "Continue",
@@ -161,8 +167,10 @@ class CarStatusView extends GetView<CarStatusController> {
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
-                    )),
-            )),
+                    ),
+            ),
+          );
+        }),
       ),
     );
   }

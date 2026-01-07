@@ -107,7 +107,7 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
 
                     _summaryRow(
                       icon: Icons.person_rounded,
-                      title: "John Doe",
+                      title: controller.booking.customerName,
                       subtitle: "Customer",
                     ),
 
@@ -115,7 +115,7 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
 
                     _summaryRow(
                       icon: Icons.local_car_wash_rounded,
-                      title: "Premium Interior + Exterior Wash",
+                      title: controller.booking.serviceName,
                       subtitle: "Service",
                     ),
 
@@ -123,7 +123,7 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
 
                     _summaryRow(
                       icon: Icons.directions_car_filled_rounded,
-                      title: "Tesla Model 3 – Grey",
+                      title: controller.booking.vehicle,
                       subtitle: "Vehicle",
                     ),
 
@@ -217,9 +217,9 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                     // --------------------------------
                     // TOTAL AMOUNT
                     // --------------------------------
-                    const Row(
+                    Row(
                       children: [
-                        Text(
+                        const Text(
                           "Total Amount",
                           style: TextStyle(
                             color: Colors.black54,
@@ -228,7 +228,7 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                         ),
                         Spacer(),
                         Text(
-                          "₹ 750",
+                          controller.booking.amount,
                           style: TextStyle(
                             color: AppColors.successLight,
                             fontSize: 20,

@@ -23,9 +23,12 @@ class BookingsRepository {
     return await ApiService.get(EndPoints.apigetpendingbookings);
   }
 
-  Future<Response> postCompleteBooking(requestBody) async {
-    return await ApiService.post(EndPoints.apipostcompletebookings, requestBody,
-        requireAuthToken: false);
+  Future<dynamic> postCompleteWash(Map<String, dynamic> body) async {
+    return await ApiService.post(
+      EndPoints.apiPostCompleteWash,
+      body,
+      requireAuthToken: false,
+    );
   }
 
   Future<Response> postArrivedBooking(requestBody) async {

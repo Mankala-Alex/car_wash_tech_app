@@ -3,7 +3,7 @@ import '../../services/api_service.dart';
 import '../../services/endpoints.dart';
 
 class ProfileRepository {
-  Future<Response> changePartnerPassword({
+  Future<Response> changeEmployeePassword({
     required String currentPassword,
     required String newPassword,
     required String confirmPassword,

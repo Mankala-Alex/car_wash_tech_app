@@ -528,4 +528,6 @@ class ApiService {
   //   Get.offAllNamed(Routes.login);
   //   return false;
   // }
+
+  // ================= MULTIPART POST (FOR IMAGE UPLOADS ONLY) =================
 }

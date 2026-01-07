@@ -52,16 +52,11 @@ class ChangePasswordController extends GetxController {
     isLoading.value = true;
 
     try {
-      final response = await repository.changePartnerPassword(
+      final response = await repository.changeEmployeePassword(
         currentPassword: currentPasswordCtrl.text.trim(),
         newPassword: newPasswordCtrl.text.trim(),
         confirmPassword: confirmPasswordCtrl.text.trim(),
       );
-
-      if (response == null) {
-        errorToast("Network error. Please try again.");
-        return;
-      }
 
       final result = ChangePasswordModel.fromJson(response.data);
 

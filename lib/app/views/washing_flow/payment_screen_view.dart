@@ -52,9 +52,9 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                 ),
                 child: Column(
                   children: [
-                    const Text(
-                      "Customer: John Doe",
-                      style: TextStyle(
+                    Text(
+                      "Customer: ${controller.booking.customerName}",
+                      style: const TextStyle(
                         fontSize: 15,
                         color: Colors.black,
                       ),
@@ -68,9 +68,9 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      "₹ 750",
-                      style: TextStyle(
+                    Text(
+                      controller.booking.amount,
+                      style: const TextStyle(
                         color: AppColors.successLight,
                         fontSize: 36,
                         fontWeight: FontWeight.bold,
@@ -267,24 +267,25 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
               width: double.infinity,
               height: 55,
               child: ElevatedButton(
-                onPressed: () {
-                  // Navigate to summary screen
-                  Get.toNamed(Routes.taskCompleted);
-                },
+                onPressed: controller.isLoading.value
+                    ? null
+                    : () => controller.completeWash(),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.secondaryLight,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
                 ),
-                child: const Text(
-                  "Proceed to Summary",
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+                child: controller.isLoading.value
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : Text(
+                        "Proceed to Summary",
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
               ),
             ),
 

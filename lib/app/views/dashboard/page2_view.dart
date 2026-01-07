@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/controllers/dashboard/dashboard_controller.dart';
 import 'package:my_new_app/app/models/bookings/history_model.dart';
+import 'package:my_new_app/app/routes/app_routes.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
 
 class Page2View extends GetView<DashboardController> {
@@ -214,6 +215,25 @@ class Page2View extends GetView<DashboardController> {
                   fontSize: 14,
                 ),
               ),
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: () {
+                Get.toNamed(
+                  Routes.serviceHistory,
+                  arguments: booking,
+                );
+              },
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Text("View Details"),
             ),
           ),
         ],
