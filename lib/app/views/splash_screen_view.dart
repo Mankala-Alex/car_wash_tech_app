@@ -9,18 +9,18 @@ class SplashScreenView extends GetView<SplashScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    // Start navigation timer in controller
-    controller.startTimer(context);
-
     final customTheme = CustomTheme.of(context);
-    final textTheme = Theme.of(context).textTheme;
+
+    // Trigger navigation after build completes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      print("[SPLASH VIEW] Build complete - triggering navigation check");
+      controller.checkTokenAndNavigate();
+    });
 
     return Scaffold(
         backgroundColor: customTheme.bgColor,
-        body: Center(
-            child: Text("Splash Screen",
-                style: TextStyle(
-                    fontSize: textTheme.bodyLarge?.fontSize,
-                    fontWeight: FontWeight.bold))));
+        body: const Center(
+          child: Text("splash screen"),
+        ));
   }
 }

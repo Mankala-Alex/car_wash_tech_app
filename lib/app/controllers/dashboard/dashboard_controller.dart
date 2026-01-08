@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:my_new_app/app/helpers/secure_store.dart';
 import 'package:my_new_app/app/helpers/shared_preferences.dart';
 import 'package:my_new_app/app/helpers/flutter_toast.dart';
 import 'package:my_new_app/app/models/technician_model/booking_model.dart';
@@ -230,18 +231,18 @@ class DashboardController extends GetxController {
 
   Future<void> logout() async {
     try {
-      // 1️⃣ Call logout API (best effort)
       await authRepo.logoutTechnician();
     } catch (e) {
       print("Logout API error: $e");
     } finally {
-      // 2️⃣ Clear local storage
       await SharedPrefsHelper.clearAll();
 
-      // 3️⃣ Reset GetX
-      Get.deleteAll(force: true);
+      await FlutterSecureStore().storeSingleValue(
+        SharedPrefsHelper.accessToken,
+        "",
+      );
 
-      // 4️⃣ Go to login
+      Get.deleteAll(force: true);
       Get.offAllNamed(Routes.login);
     }
   }

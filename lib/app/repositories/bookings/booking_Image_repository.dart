@@ -1,48 +1,50 @@
-import 'dart:io';
-import 'package:dio/dio.dart';
+// lib/app/repositories/bookings/booking_image_repository.dart
 
 import 'dart:io';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
+
+import 'package:my_new_app/app/config/environment.dart';
+import '../../services/endpoints.dart';
+import '../../helpers/secure_store.dart';
+import '../../helpers/shared_preferences.dart';
 
 class BookingImageRepository {
-  final Dio _dio = Dio(
-    BaseOptions(
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 15),
-    ),
-  );
-
   Future<bool> uploadImages({
     required String bookingId,
     required String employeeId,
     required String imageType,
     required List<File> images,
   }) async {
-    try {
-      final formData = FormData.fromMap({
-        'booking_id': bookingId,
-        'employee_id': employeeId,
-        'image_type': imageType,
-        'images': images
-            .map(
-              (file) => MultipartFile.fromFileSync(file.path),
-            )
-            .toList(),
-      });
+    // ✅ Create a fresh Dio instance (safe for multipart)
+    final dio.Dio dioClient = dio.Dio();
 
-      final response = await _dio.post(
-        // ✅ Emulator-safe URL
-        'http://10.0.2.2:3000/api/employee/bookings/upload-images',
-        data: formData,
-      );
+    final token = await FlutterSecureStore()
+        .getSingleValue(SharedPrefsHelper.accessToken);
 
-      print('UPLOAD STATUS → ${response.statusCode}');
-      print('UPLOAD BODY → ${response.data}');
+    // ✅ Build FormData correctly
+    final dio.FormData formData = dio.FormData.fromMap({
+      'booking_id': bookingId,
+      'employee_id': employeeId,
+      'image_type': imageType,
+      'images': images
+          .map(
+            (f) => dio.MultipartFile.fromFileSync(f.path),
+          )
+          .toList(),
+    });
 
-      return response.statusCode == 200;
-    } catch (e) {
-      print('UPLOAD ERROR → $e');
-      return false;
-    }
+    // ✅ Make request
+    final response = await dioClient.post(
+      Environment.baseUrl + EndPoints.apiPostUploadImages,
+      data: formData,
+      options: dio.Options(
+        contentType: 'multipart/form-data',
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
+
+    return response.statusCode == 200;
   }
 }

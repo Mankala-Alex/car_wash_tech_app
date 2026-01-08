@@ -110,5 +110,10 @@ class AppPages {
       page: () => const ServiceHistoryView(),
       binding: ServiceHistoryBinding(),
     ),
+    GetPage(
+      name: Routes.langChange,
+      page: () => const LangSelectionView(),
+      binding: LangSelectionBindings(),
+    ),
   ];
 }

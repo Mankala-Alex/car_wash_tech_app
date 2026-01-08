@@ -1,23 +1,31 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:my_new_app/app/helpers/shared_preferences.dart';
 import 'package:my_new_app/app/helpers/flutter_toast.dart';
 import 'package:my_new_app/app/models/bookings/completed_wash_model.dart';
 import 'package:my_new_app/app/models/technician_model/booking_model.dart';
 import 'package:my_new_app/app/repositories/bookings/bookings_repository.dart';
+import 'package:my_new_app/app/repositories/bookings/booking_image_repository.dart';
 import 'package:my_new_app/app/routes/app_routes.dart';
 
 class PaymentScreenController extends GetxController {
   final BookingsRepository repository = BookingsRepository();
+  final BookingImageRepository imageRepo = BookingImageRepository();
 
   late BookingModel booking;
 
   var isPaid = false.obs;
   var isLoading = false.obs;
 
+  /// images (set these from previous screen)
+  List<File> beforeImages = [];
+  List<File> afterImages = [];
+
   @override
   void onInit() {
-    booking = Get.arguments as BookingModel;
     super.onInit();
+    booking = Get.arguments as BookingModel;
   }
 
   void markPaid() {
@@ -42,11 +50,15 @@ class PaymentScreenController extends GetxController {
 
       final response = await repository.postCompleteWash(body);
 
+      if (response.data == null) {
+        errorToast("Failed to complete wash");
+        return;
+      }
+
       final result = Completedwashmodel.fromJson(response.data);
 
       if (result.success && result.booking != null) {
         successToast("Wash completed successfully");
-
         Get.offAllNamed(
           Routes.taskCompleted,
           arguments: result.booking,
@@ -55,7 +67,7 @@ class PaymentScreenController extends GetxController {
         errorToast("Failed to complete wash");
       }
     } catch (e) {
-      errorToast("Something went wrong");
+      errorToast(e.toString());
     } finally {
       isLoading(false);
     }

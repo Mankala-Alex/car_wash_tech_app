@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/config/constants.dart';
 import 'package:my_new_app/app/controllers/dashboard/service_history_controller.dart';
+import 'package:my_new_app/app/custome_widgets/skeleton_box.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ServiceHistoryView extends GetView<ServiceHistoryController> {
   const ServiceHistoryView({super.key});
@@ -17,10 +19,10 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
         backgroundColor: AppColors.bgLight,
         elevation: 0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Booking Details",
           //"Booking ${booking.bookingCode}",
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
@@ -56,8 +58,8 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
 
     return Row(
       children: [
-        Expanded(
-          child: const Text(
+        const Expanded(
+          child: Text(
             "Job Status",
             style: TextStyle(
               fontSize: 22,
@@ -183,12 +185,35 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
                   separatorBuilder: (_, __) => const SizedBox(width: 12),
                   itemBuilder: (_, i) {
                     final path = images[i].replaceAll("\\", "/");
+
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        Constants.imageBaseUrl + path,
+                      child: SizedBox(
                         width: 260,
-                        fit: BoxFit.cover,
+                        child: Image.network(
+                          Constants.imageBaseUrl + path,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+
+                            return const SkeletonBox(
+                              width: 260,
+                              height: 160,
+                              radius: 16,
+                            );
+                          },
+                          errorBuilder: (_, __, ___) {
+                            return Container(
+                              color: Colors.grey.shade200,
+                              alignment: Alignment.center,
+                              child: const Icon(
+                                Icons.broken_image,
+                                size: 40,
+                                color: Colors.grey,
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     );
                   },

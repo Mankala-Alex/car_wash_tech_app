@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_new_app/app/controllers/washing_flow/payment_screen_controller.dart';
-import 'package:my_new_app/app/routes/app_routes.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
 
 class PaymentScreenView extends GetView<PaymentScreenController> {
@@ -278,7 +277,7 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                 ),
                 child: controller.isLoading.value
                     ? const CircularProgressIndicator(color: Colors.white)
-                    : Text(
+                    : const Text(
                         "Proceed to Summary",
                         style: TextStyle(
                           fontSize: 17,

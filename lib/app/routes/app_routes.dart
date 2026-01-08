@@ -16,4 +16,5 @@ abstract class Routes {
   static const taskCompleted = '/task_completed_view';
   static const changepassword = '/change_password_view';
   static const serviceHistory = '/service_history_view';
+  static const langChange = '/lang_change_view';
 }

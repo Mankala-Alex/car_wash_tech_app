@@ -160,7 +160,12 @@ class Page3View extends GetView<DashboardController> {
             // SETTINGS OPTIONS
             // -----------------------------
 
-            _settingsTile("Change Language"),
+            _settingsTile(
+              "Change Language",
+              onTap: () {
+                Get.toNamed(Routes.langChange);
+              },
+            ),
             const Divider(),
             _settingsTile(
               "Change Password",

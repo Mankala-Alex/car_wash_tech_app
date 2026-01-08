@@ -39,17 +39,13 @@ class LoginController extends GetxController {
         final employee = response.data["employee"];
         final token = response.data["token"];
 
-        // SAVE EMPLOYEE DETAILS
-        await SharedPrefsHelper.setString(
-          "employeeId",
-          employee["id"] ?? "",
-        );
+        await SharedPrefsHelper.clearAll();
 
+        await SharedPrefsHelper.setString("employeeId", employee["id"] ?? "");
         await SharedPrefsHelper.setString(
           "employeeName",
           "${employee["first_name"] ?? ""} ${employee["last_name"] ?? ""}",
         );
-
         await SharedPrefsHelper.setString(
           "employeeDesignation",
           employee["designation"] ?? "",
@@ -60,12 +56,6 @@ class LoginController extends GetxController {
           token,
         );
 
-        // OPTIONAL: DEBUG CHECK
-        print("EMP ID = ${employee["id"]}");
-        print("EMP NAME = ${employee["first_name"]} ${employee["last_name"]}");
-        print("TOKEN = $token");
-
-        // NAVIGATE
         Get.offAllNamed(Routes.dashboard);
       }
     } on DioException catch (e) {

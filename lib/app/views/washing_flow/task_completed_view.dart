@@ -226,10 +226,10 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                             fontSize: 16,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           controller.booking.amount,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.successLight,
                             fontSize: 20,
                             fontWeight: FontWeight.w700,

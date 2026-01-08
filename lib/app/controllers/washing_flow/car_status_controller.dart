@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:my_new_app/app/controllers/dashboard/dashboard_controller.dart';
 import 'package:my_new_app/app/helpers/flutter_toast.dart';
 import 'package:my_new_app/app/helpers/shared_preferences.dart';
-import 'package:my_new_app/app/models/bookings/completed_wash_model.dart';
 import 'package:my_new_app/app/models/technician_model/booking_model.dart';
 import 'package:my_new_app/app/repositories/bookings/bookings_repository.dart';
 import 'package:my_new_app/app/repositories/bookings/booking_Image_repository.dart';
