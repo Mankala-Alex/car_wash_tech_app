@@ -8,240 +8,241 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.bgLight,
-
-      appBar: AppBar(
+    return PopScope(
+      canPop: false, // 🚫 Completely disable back navigation
+      child: Scaffold(
         backgroundColor: AppColors.bgLight,
-        elevation: 0,
-        title: const Text(
-          "Task Details",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
+        appBar: AppBar(
+          backgroundColor: AppColors.bgLight,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          title: Center(
+            child: const Text(
+              "Task Details",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Get.back(),
-        ),
-      ),
 
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            // ============================
-            // CUSTOMER SECTION
-            // ============================
-            _card(
-              child: Row(
-                children: [
-                  const Icon(Icons.person_outline,
-                      size: 30, color: Colors.black54),
-                  const SizedBox(width: 14),
-                  Expanded(
-                      child: Text(
-                    controller.booking.customerName,
-                    style: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.blue.withOpacity(0.1),
-                    ),
-                    child: const Icon(Icons.call, color: Colors.blue),
-                  )
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 18),
-
-            _card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Vehicle & Service Details",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  // VEHICLE
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Icon(
-                        Icons.directions_car_filled_outlined,
-                        size: 34,
-                        color: Colors.black45,
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              // ============================
+              // CUSTOMER SECTION
+              // ============================
+              _card(
+                child: Row(
+                  children: [
+                    const Icon(Icons.person_outline,
+                        size: 30, color: Colors.black54),
+                    const SizedBox(width: 14),
+                    Expanded(
+                        child: Text(
+                      controller.booking.customerName,
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
                       ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
+                    )),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.blue.withOpacity(0.1),
+                      ),
+                      child: const Icon(Icons.call, color: Colors.blue),
+                    )
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 18),
+
+              _card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Vehicle & Service Details",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // VEHICLE
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.directions_car_filled_outlined,
+                          size: 34,
+                          color: Colors.black45,
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _kv("Vehicle", controller.booking.vehicle),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 10),
+                    const Divider(),
+                    const SizedBox(height: 10),
+
+                    // SERVICE
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.local_car_wash_outlined,
+                          size: 32,
+                          color: Colors.black45,
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _kv("Service", controller.booking.serviceName),
+                              const SizedBox(height: 6),
+                              _kv(
+                                "Amount",
+                                "₹${controller.booking.amount}",
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // ============================
+              // LOCATION
+              // ============================
+              _card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Location",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Row(
+                      children: [
+                        Icon(Icons.location_on_outlined, color: Colors.blue),
+                        SizedBox(width: 10),
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _kv("Vehicle", controller.booking.vehicle),
+                            Text("123 Main Street",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w600)),
+                            SizedBox(height: 3),
+                            Text("San Francisco, CA 94103",
+                                style: TextStyle(color: Colors.black54)),
                           ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        "assets/car_tech/map.png",
+                        height: 180,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Center(
+                      child: TextButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(Icons.navigation, color: Colors.blue),
+                        label: const Text(
+                          "Get Directions",
+                          style: TextStyle(color: Colors.blue),
                         ),
                       ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 10),
-                  const Divider(),
-                  const SizedBox(height: 10),
-
-                  // SERVICE
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Icon(
-                        Icons.local_car_wash_outlined,
-                        size: 32,
-                        color: Colors.black45,
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _kv("Service", controller.booking.serviceName),
-                            const SizedBox(height: 6),
-                            _kv(
-                              "Amount",
-                              "₹${controller.booking.amount}",
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
 
-            // ============================
-            // LOCATION
-            // ============================
-            _card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Location",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  const Row(
-                    children: [
-                      Icon(Icons.location_on_outlined, color: Colors.blue),
-                      SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("123 Main Street",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600)),
-                          SizedBox(height: 3),
-                          Text("San Francisco, CA 94103",
-                              style: TextStyle(color: Colors.black54)),
-                        ],
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      "assets/car_tech/map.png",
-                      height: 180,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Center(
-                    child: TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.navigation, color: Colors.blue),
-                      label: const Text(
-                        "Get Directions",
-                        style: TextStyle(color: Colors.blue),
+              const SizedBox(height: 18),
+
+              // ============================
+              // TOTAL PRICE
+              // ============================
+              _card(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("Total Price",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text(
+                      "₹${controller.booking.amount}",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
 
-            const SizedBox(height: 18),
-
-            // ============================
-            // TOTAL PRICE
-            // ============================
-            _card(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("Total Price",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text(
-                    "₹${controller.booking.amount}",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 30),
-          ],
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
-      ),
 
-      // ============================
-      // START TASK BUTTON
-      // ============================
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16),
-        child: SizedBox(
-          height: 55,
-          child: ElevatedButton(
-            onPressed: () {
-              controller.startWork();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.secondaryLight,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
+        // ============================
+        // START TASK BUTTON
+        // ============================
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(16),
+          child: SizedBox(
+            height: 55,
+            child: ElevatedButton(
+              onPressed: () {
+                controller.startWork();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.secondaryLight,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
               ),
-            ),
-            child: const Text(
-              "Start Task",
-              style: TextStyle(
-                fontSize: 17,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+              child: const Text(
+                "Start Task",
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),

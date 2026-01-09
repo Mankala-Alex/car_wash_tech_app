@@ -13,10 +13,9 @@ import 'package:my_new_app/app/views/dashboard/dashboard_view.dart';
 import 'package:my_new_app/app/views/dashboard/service_history_view.dart';
 import 'package:my_new_app/app/views/profile/change_password_view.dart';
 import 'package:my_new_app/app/views/washing_flow/all_tasks_view.dart';
-import 'package:my_new_app/app/views/washing_flow/car_status_view.dart';
+import 'package:my_new_app/app/views/washing_flow/car_inspection.dart';
 import 'package:my_new_app/app/views/washing_flow/cust_location_view.dart';
 import 'package:my_new_app/app/views/washing_flow/payment_screen_view.dart';
-import 'package:my_new_app/app/views/washing_flow/pre_task_checklist_view.dart';
 import 'package:my_new_app/app/views/washing_flow/task_completed_view.dart';
 import 'package:my_new_app/app/views/washing_flow/task_details_view.dart';
 
@@ -75,11 +74,7 @@ class AppPages {
       page: () => CustLocationView(),
       binding: CustLocationBindings(),
     ),
-    GetPage(
-      name: Routes.preTaskChecklist,
-      page: () => const PreTaskChecklistView(),
-      binding: PreTaskChecklistBindings(),
-    ),
+
     GetPage(
       name: Routes.taskDetails,
       page: () => const TaskDetailsView(),

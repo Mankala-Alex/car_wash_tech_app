@@ -29,8 +29,8 @@ class Page3View extends GetView<DashboardController> {
           onPressed: () => Get.back(),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+      body: Padding(
+        padding: const EdgeInsets.all(15),
         child: Column(
           children: [
             Column(
@@ -109,53 +109,11 @@ class Page3View extends GetView<DashboardController> {
               ],
             ),
 
-            const SizedBox(height: 25),
-
             // -----------------------------
             // STATS (Rating / Jobs / On-Time)
             // -----------------------------
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _statBox("4.8", "Avg Rating", Icons.star, Colors.orange),
-                _statBox("124", "Jobs Done", Icons.build),
-                _statBox("98%", "On-Time", Icons.timelapse),
-              ],
-            ),
 
-            const SizedBox(height: 30),
-            const Text(
-              "Personal Information",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
-            ),
-
-            Container(
-              padding: const EdgeInsets.all(18),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _infoRow(Icons.badge, "EMPLOYEE ID", "#CW-8821"),
-                  const Divider(),
-                  _infoRow(Icons.phone, "PHONE", "(555) 123-4567"),
-                  const Divider(),
-                  _infoRow(Icons.directions_car, "VEHICLE",
-                      "Ford Transit (ABC-123)"),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 25),
-
-            const SizedBox(height: 20),
-
+            Spacer(),
             // -----------------------------
             // SETTINGS OPTIONS
             // -----------------------------
@@ -173,6 +131,7 @@ class Page3View extends GetView<DashboardController> {
                 Get.toNamed(Routes.changepassword);
               },
             ),
+            const Divider(),
 
             _settingsTile(
               "Log Out",
@@ -200,80 +159,6 @@ class Page3View extends GetView<DashboardController> {
     );
   }
 
-  // -----------------------------------------
-  // COMPONENT: STATS
-  // -----------------------------------------
-  Widget _statBox(String value, String label, IconData icon, [Color? color]) {
-    return Container(
-      width: 100,
-      padding: const EdgeInsets.symmetric(vertical: 18),
-      decoration: BoxDecoration(
-        color: const Color(0xfffff2e0),
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, color: color ?? Colors.black54),
-          const SizedBox(height: 5),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 13,
-              color: Colors.black54,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // -----------------------------------------
-  // COMPONENT: PERSONAL INFO ROW
-  // -----------------------------------------
-  Widget _infoRow(IconData icon, String title, String value) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: const BoxDecoration(
-            color: Color(0xfffff2e0),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, color: Colors.orange),
-        ),
-        const SizedBox(width: 14),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title,
-                style: const TextStyle(
-                    color: Colors.black54,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600)),
-            const SizedBox(height: 2),
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
-        )
-      ],
-    );
-  }
-
-  // -----------------------------------------
-  // COMPONENT: SETTINGS TILE
-  // -----------------------------------------
   Widget _settingsTile(
     String title, {
     bool isLogout = false,

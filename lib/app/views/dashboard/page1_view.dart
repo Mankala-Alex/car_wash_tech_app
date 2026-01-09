@@ -19,32 +19,34 @@ class Page1View extends GetView<DashboardController> {
         backgroundColor: AppColors.bgLight,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Row(
+        title: Row(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 22,
               backgroundImage: AssetImage("assets/car_tech/profile_avatar.png"),
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
 
             // Name + Greeting
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Good Morning,",
-                  style: TextStyle(fontSize: 12, color: Colors.black54),
-                ),
-                Text(
-                  "Alex Mitchell",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     Text(
+            //       "Good Morning,",
+            //       style: TextStyle(fontSize: 12, color: Colors.black54),
+            //     ),
+            //     Obx(
+            //       () => Text(
+            //         controller.employeeName.value,
+            //         style: TextStyle(
+            //           fontSize: 16,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.black,
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
         actions: const [

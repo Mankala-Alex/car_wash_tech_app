@@ -4,7 +4,6 @@ import 'package:my_new_app/app/config/constants.dart';
 import 'package:my_new_app/app/controllers/dashboard/service_history_controller.dart';
 import 'package:my_new_app/app/custome_widgets/skeleton_box.dart';
 import 'package:my_new_app/app/theme/app_theme.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ServiceHistoryView extends GetView<ServiceHistoryController> {
   const ServiceHistoryView({super.key});
@@ -184,14 +183,20 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
                   itemCount: images.length,
                   separatorBuilder: (_, __) => const SizedBox(width: 12),
                   itemBuilder: (_, i) {
-                    final path = images[i].replaceAll("\\", "/");
+                    final imagePath = images[i];
+                    // Clean the path - remove backslashes and ensure it starts with /
+                    final cleanPath = imagePath.replaceAll("\\", "/");
+                    final fullUrl = Constants.imageBaseUrl + cleanPath;
+
+                    // Debug logging
+                    print("Image URL: $fullUrl");
 
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: SizedBox(
                         width: 260,
                         child: Image.network(
-                          Constants.imageBaseUrl + path,
+                          fullUrl,
                           fit: BoxFit.cover,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
@@ -202,14 +207,32 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
                               radius: 16,
                             );
                           },
-                          errorBuilder: (_, __, ___) {
+                          errorBuilder: (context, error, stackTrace) {
+                            print("Image load error for $fullUrl: $error");
                             return Container(
                               color: Colors.grey.shade200,
                               alignment: Alignment.center,
-                              child: const Icon(
-                                Icons.broken_image,
-                                size: 40,
-                                color: Colors.grey,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.broken_image,
+                                    size: 40,
+                                    color: Colors.grey,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Failed to load\n$cleanPath",
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             );
                           },

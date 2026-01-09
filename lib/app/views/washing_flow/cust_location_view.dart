@@ -11,185 +11,191 @@ class CustLocationView extends GetView<CustLocationController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.bgLight,
+    return PopScope(
+      canPop: false, // 🚫 Completely disable back navigation
 
-      // -----------------------------
-      // APP BAR
-      // -----------------------------
-      appBar: AppBar(
+      child: Scaffold(
         backgroundColor: AppColors.bgLight,
-        elevation: 0,
-        title: const Text(
-          "Customer Location",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+
+        // -----------------------------
+        // APP BAR
+        // -----------------------------
+        appBar: AppBar(
+          backgroundColor: AppColors.bgLight,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          title: const Text(
+            "Customer Location",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () => Get.back(),
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
           ),
         ),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-        ),
-      ),
 
-      // -----------------------------
-      // BODY
-      // -----------------------------
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            // ---------------------------------
-            // CUSTOMER CARD
-            // ---------------------------------
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              decoration: _cardDecoration(),
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.15),
-                      shape: BoxShape.circle,
-                    ),
-                    child:
-                        const Icon(Icons.person, color: Colors.blue, size: 24),
-                  ),
-                  const SizedBox(width: 14),
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "John Appleseed",
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "123 Main Street, Anytown, CA 91234",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                          ),
-                        ),
-                        SizedBox(height: 6),
-                        Text(
-                          "Premium Exterior Wash",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // ---------------------------------
-            // MAP IMAGE
-            // ---------------------------------
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
-                "assets/car_tech/map.png",
-                height: 260,
+        // -----------------------------
+        // BODY
+        // -----------------------------
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              // ---------------------------------
+              // CUSTOMER CARD
+              // ---------------------------------
+              Container(
                 width: double.infinity,
-                fit: BoxFit.cover,
+                padding: const EdgeInsets.all(16),
+                decoration: _cardDecoration(),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.person,
+                          color: Colors.blue, size: 24),
+                    ),
+                    const SizedBox(width: 14),
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "John Appleseed",
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            "123 Main Street, Anytown, CA 91234",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                            ),
+                          ),
+                          SizedBox(height: 6),
+                          Text(
+                            "Premium Exterior Wash",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
 
-            const SizedBox(height: 30),
-          ],
+              const SizedBox(height: 20),
+
+              // ---------------------------------
+              // MAP IMAGE
+              // ---------------------------------
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  "assets/car_tech/map.png",
+                  height: 260,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
-      ),
 
-      // -----------------------------
-      // BOTTOM BUTTONS
-      // -----------------------------
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Navigate button
-            SizedBox(
-              width: double.infinity,
-              height: 55,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.navigation, color: Colors.white),
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.secondaryLight,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
+        // -----------------------------
+        // BOTTOM BUTTONS
+        // -----------------------------
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Navigate button
+              SizedBox(
+                width: double.infinity,
+                height: 55,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.navigation, color: Colors.white),
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.secondaryLight,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
                   ),
-                ),
-                label: const Text(
-                  "Navigate",
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                  label: const Text(
+                    "Navigate",
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            const SizedBox(height: 14),
+              const SizedBox(height: 14),
 
-            // -------------------------------------------
-            // SWIPE TO CONFIRM ARRIVAL
-            // -------------------------------------------
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                height: 60,
-                child: SlideAction(
-                  key: slideKey,
-                  borderRadius: 16,
-                  elevation: 0,
-                  outerColor: AppColors.primaryLight,
-                  innerColor: AppColors.secondaryLight,
-                  text: "I've Arrived",
-                  textStyle: const TextStyle(
-                    color: AppColors.bgBlackLight,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              // -------------------------------------------
+              // SWIPE TO CONFIRM ARRIVAL
+              // -------------------------------------------
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                  height: 60,
+                  child: SlideAction(
+                    key: slideKey,
+                    borderRadius: 16,
+                    elevation: 0,
+                    outerColor: AppColors.primaryLight,
+                    innerColor: AppColors.secondaryLight,
+                    text: "I've Arrived",
+                    textStyle: const TextStyle(
+                      color: AppColors.bgBlackLight,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    sliderButtonIcon: const Icon(
+                      Icons.keyboard_double_arrow_right_rounded,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onSubmit: () async {
+                      await controller.markArrived();
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Arrived confirmed")),
+                      );
+
+                      await Future.delayed(const Duration(seconds: 1));
+
+                      slideKey.currentState?.reset();
+                    },
                   ),
-                  sliderButtonIcon: const Icon(
-                    Icons.keyboard_double_arrow_right_rounded,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onSubmit: () async {
-                    await controller.markArrived();
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Arrived confirmed")),
-                    );
-
-                    await Future.delayed(const Duration(seconds: 1));
-
-                    slideKey.currentState?.reset();
-                  },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

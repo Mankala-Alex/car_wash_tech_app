@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:my_new_app/app/helpers/secure_store.dart';
 import 'package:my_new_app/app/helpers/shared_preferences.dart';
@@ -7,11 +9,16 @@ import 'package:my_new_app/app/repositories/auth/auth_repository.dart';
 import 'package:my_new_app/app/repositories/bookings/bookings_repository.dart';
 import 'package:my_new_app/app/models/bookings/history_model.dart';
 import 'package:my_new_app/app/routes/app_routes.dart';
+import 'package:my_new_app/app/services/socket_service.dart';
 
 class DashboardController extends GetxController {
   final BookingsRepository repository = BookingsRepository();
   final AuthRepository authRepo = AuthRepository();
-
+  final SocketService socketService = Get.find<SocketService>();
+////////////////////
+  ///demo purpose just for auto refresh
+  Timer? _refreshTimer;
+////////////////////
   var todaysTotalJobs = 0.obs;
   var todaysPending = 0.obs;
   var todaysCompleted = 0.obs;
@@ -39,12 +46,168 @@ class DashboardController extends GetxController {
     super.onInit();
     loadEmployeeData();
     initData();
+    _setupSocketListeners();
+
+    // 👇 DEMO ONLY
+    _startAutoRefresh();
+  }
+
+////////////////////////////////////////////////
+  ///demo purpose just for auto refresh
+  void _startAutoRefresh() {
+    _refreshTimer?.cancel();
+
+    _refreshTimer = Timer.periodic(
+      const Duration(seconds: 5), // demo friendly
+      (_) {
+        print("🔄 AUTO REFRESH TICK");
+        fetchPendingBookings();
+      },
+    );
+  }
+
+  @override
+  void onClose() {
+    _refreshTimer?.cancel();
+    super.onClose();
+  }
+
+//////////////////////////////////////////
+  /// Setup real-time socket event listeners
+  void _setupSocketListeners() {
+    try {
+      // Listen to new booking created
+      socketService.bookingCreatedEvent.listen((bookingData) {
+        if (bookingData != null) {
+          _handleBookingCreated(bookingData);
+        }
+      });
+
+      // Listen to booking accepted
+      socketService.bookingAcceptedEvent.listen((bookingData) {
+        if (bookingData != null) {
+          _handleBookingStatusChange(bookingData, "ASSIGNED");
+        }
+      });
+
+      // Listen to booking arrived
+      socketService.bookingArrivedEvent.listen((bookingData) {
+        if (bookingData != null) {
+          _handleBookingStatusChange(bookingData, "ARRIVED");
+        }
+      });
+
+      // Listen to booking started
+      socketService.bookingStartedEvent.listen((bookingData) {
+        if (bookingData != null) {
+          _handleBookingStatusChange(bookingData, "IN_PROGRESS");
+        }
+      });
+
+      // Listen to booking completed
+      socketService.bookingCompletedEvent.listen((bookingData) {
+        if (bookingData != null) {
+          _handleBookingStatusChange(bookingData, "COMPLETED");
+        }
+      });
+    } catch (e) {
+      print("Socket listeners setup error: $e");
+    }
+  }
+
+  /// Handle new booking created event
+  void _handleBookingCreated(Map<String, dynamic> bookingData) {
+    try {
+      final raw = bookingData['booking'] ?? bookingData;
+      final booking = BookingModel.fromJson(raw);
+
+      if (!pendingBookings.any((b) => b.id == booking.id)) {
+        pendingBookings.insert(0, booking);
+        calculateSummary();
+      }
+    } catch (e) {
+      print("booking_created parse error: $e");
+    }
+  }
+
+  /// Handle booking status change event
+  void _handleBookingStatusChange(
+      Map<String, dynamic> bookingData, String expectedStatus) {
+    try {
+      final raw = bookingData['booking'] ?? bookingData;
+      final bookingId = raw['id'];
+
+      if (bookingId == null) return;
+
+      // Remove from pending
+      pendingBookings.removeWhere((b) => b.id == bookingId);
+
+      final index = todaysTasks.indexWhere((b) => b.id == bookingId);
+
+      if (index != -1) {
+        // ✅ UPDATE STATUS WITHOUT copyWith
+        final updated = BookingModel.fromJson({
+          ...raw,
+          'status': expectedStatus,
+        });
+
+        todaysTasks[index] = updated;
+      } else if (expectedStatus == "ASSIGNED") {
+        final booking = BookingModel.fromJson(raw);
+        todaysTasks.insert(0, booking);
+      }
+
+      calculateSummary();
+    } catch (e) {
+      print("Error handling status change event: $e");
+    }
   }
 
   Future<void> initData() async {
-    await fetchPendingBookings(); // wait for API 1
-    await fetchBookingHistory(); // wait for API 2
-    calculateSummary(); // now calculate correctly
+    isLoading(true);
+    try {
+      // Run both API calls in parallel
+      await Future.wait([
+        fetchPendingBookings(),
+        fetchBookingHistory(),
+      ]);
+
+      // Populate today's tasks from assigned bookings
+      populateTodaysTasks();
+      calculateSummary();
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  void populateTodaysTasks() {
+    // Get today's assigned bookings from history
+    final assignedToday = historyBookings
+        .where((b) => b.status == "ASSIGNED" && isToday(b.updatedAt))
+        .toList();
+    todaysTasks.assignAll(
+      assignedToday
+          .map((h) => BookingModel(
+                id: h.id,
+                bookingCode: h.bookingCode,
+                customerId: h.customerId,
+                customerName: h.customerName,
+                vehicle: h.vehicle,
+                serviceId: h.serviceId,
+                serviceName: h.serviceName,
+                scheduledAt: h.scheduledAt,
+                washerId: h.washerId,
+                washerName: h.washerName,
+                status: h.status,
+                amount: h.amount,
+                createdAt: h.createdAt,
+                updatedAt: h.updatedAt,
+                slotId: h.slotId,
+                beforeImages: h.beforeImages,
+                afterImages: h.afterImages,
+              ))
+          .toList(),
+    );
   }
 
   bool isToday(DateTime? date) {
@@ -100,8 +263,6 @@ class DashboardController extends GetxController {
   // ---------------------------------------
   Future<void> fetchPendingBookings() async {
     try {
-      isLoading(true);
-
       final response = await repository.getApiPendingBokkings();
 
       List data = response.data["bookings"];
@@ -110,9 +271,8 @@ class DashboardController extends GetxController {
         data.map((e) => BookingModel.fromJson(e)).toList(),
       );
     } catch (e) {
+      print("Error fetching pending bookings: $e");
       errorToast("Failed to load pending bookings");
-    } finally {
-      isLoading(false);
     }
   }
 
@@ -188,9 +348,10 @@ class DashboardController extends GetxController {
     try {
       final employeeId = await SharedPrefsHelper.getString("employeeId");
 
-      if (employeeId.isEmpty) return;
-
-      isLoading(true);
+      if (employeeId.isEmpty) {
+        errorToast("Employee ID not found");
+        return;
+      }
 
       final response = await repository.getApiBookingHistory(
         query: {"employee_id": employeeId},
@@ -200,9 +361,8 @@ class DashboardController extends GetxController {
 
       historyBookings.assignAll(data.bookings);
     } catch (e) {
+      print("Error fetching booking history: $e");
       errorToast("Failed to load booking history");
-    } finally {
-      isLoading(false);
     }
   }
 
@@ -231,6 +391,9 @@ class DashboardController extends GetxController {
 
   Future<void> logout() async {
     try {
+      // Disconnect socket before logout
+      socketService.disconnect();
+
       await authRepo.logoutTechnician();
     } catch (e) {
       print("Logout API error: $e");
