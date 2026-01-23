@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:my_new_app/app/controllers/profile/change_password_controller.dart';
+import 'package:car_wash_technician/app/controllers/profile/change_password_controller.dart';
 
 class ChangePasswordBinding extends Bindings {
   @override

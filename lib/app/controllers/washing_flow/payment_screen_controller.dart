@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:get/get.dart';
-import 'package:my_new_app/app/helpers/shared_preferences.dart';
-import 'package:my_new_app/app/helpers/flutter_toast.dart';
-import 'package:my_new_app/app/models/bookings/completed_wash_model.dart';
-import 'package:my_new_app/app/models/technician_model/booking_model.dart';
-import 'package:my_new_app/app/repositories/bookings/bookings_repository.dart';
-import 'package:my_new_app/app/repositories/bookings/booking_image_repository.dart';
-import 'package:my_new_app/app/routes/app_routes.dart';
+import 'package:car_wash_technician/app/helpers/shared_preferences.dart';
+import 'package:car_wash_technician/app/helpers/flutter_toast.dart';
+import 'package:car_wash_technician/app/models/bookings/completed_wash_model.dart';
+import 'package:car_wash_technician/app/models/technician_model/booking_model.dart';
+import 'package:car_wash_technician/app/repositories/bookings/bookings_repository.dart';
+import 'package:car_wash_technician/app/repositories/bookings/booking_image_repository.dart';
+import 'package:car_wash_technician/app/routes/app_routes.dart';
 
 class PaymentScreenController extends GetxController {
   final BookingsRepository repository = BookingsRepository();

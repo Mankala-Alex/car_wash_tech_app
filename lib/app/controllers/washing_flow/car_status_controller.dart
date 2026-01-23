@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:my_new_app/app/helpers/flutter_toast.dart';
-import 'package:my_new_app/app/helpers/shared_preferences.dart';
-import 'package:my_new_app/app/models/technician_model/booking_model.dart';
-import 'package:my_new_app/app/repositories/bookings/bookings_repository.dart';
-import 'package:my_new_app/app/repositories/bookings/booking_Image_repository.dart';
-import 'package:my_new_app/app/routes/app_routes.dart';
+import 'package:car_wash_technician/app/helpers/flutter_toast.dart';
+import 'package:car_wash_technician/app/helpers/shared_preferences.dart';
+import 'package:car_wash_technician/app/models/technician_model/booking_model.dart';
+import 'package:car_wash_technician/app/repositories/bookings/bookings_repository.dart';
+import 'package:car_wash_technician/app/repositories/bookings/booking_Image_repository.dart';
+import 'package:car_wash_technician/app/routes/app_routes.dart';
 
 class CarStatusController extends GetxController {
   final ImagePicker picker = ImagePicker();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_new_app/app/theme/app_theme.dart';
+import 'package:car_wash_technician/app/theme/app_theme.dart';
 import '../../controllers/auth/lang_selection_controller.dart';
 
 class LangSelectionView extends GetView<LangSelectionController> {
@@ -10,14 +10,13 @@ class LangSelectionView extends GetView<LangSelectionController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
-
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
-      
+
             // ============================
             // TOP ICON
             // ============================
@@ -28,15 +27,15 @@ class LangSelectionView extends GetView<LangSelectionController> {
                 color: AppColors.secondaryLight,
                 shape: BoxShape.circle,
               ),
-              child:  const Icon(
+              child: const Icon(
                 Icons.local_car_wash_rounded,
                 color: AppColors.primaryLight,
                 size: 40,
               ),
             ),
-      
+
             const SizedBox(height: 25),
-      
+
             // ============================
             // TITLE
             // ============================
@@ -48,9 +47,9 @@ class LangSelectionView extends GetView<LangSelectionController> {
                 color: Colors.black,
               ),
             ),
-      
+
             const SizedBox(height: 10),
-      
+
             // SUBTITLE
             const Text(
               "Please choose your preferred language to continue\nusing the technician app.",
@@ -61,15 +60,15 @@ class LangSelectionView extends GetView<LangSelectionController> {
                 height: 1.4,
               ),
             ),
-      
+
             const SizedBox(height: 35),
-      
+
             // ============================
             // ENGLISH OPTION
             // ============================
             Obx(() {
               bool active = controller.selectedValue.value == 'en';
-      
+
               return GestureDetector(
                 onTap: () => controller.selectedValue.value = 'en',
                 child: Container(
@@ -78,16 +77,15 @@ class LangSelectionView extends GetView<LangSelectionController> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(18),
                     border: Border.all(
-                      color: active ? AppColors.primaryLight : Colors.grey.shade300,
+                      color: active
+                          ? AppColors.primaryLight
+                          : Colors.grey.shade300,
                       width: 2,
                     ),
                   ),
                   child: Row(
                     children: [
-                      
-      
                       const SizedBox(width: 15),
-      
                       const Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,12 +108,13 @@ class LangSelectionView extends GetView<LangSelectionController> {
                           ],
                         ),
                       ),
-      
                       Icon(
                         active
                             ? Icons.radio_button_checked
                             : Icons.radio_button_off,
-                        color: active ? AppColors.secondaryLight : Colors.grey.shade400,
+                        color: active
+                            ? AppColors.secondaryLight
+                            : Colors.grey.shade400,
                         size: 28,
                       ),
                     ],
@@ -123,15 +122,15 @@ class LangSelectionView extends GetView<LangSelectionController> {
                 ),
               );
             }),
-      
+
             const SizedBox(height: 15),
-      
+
             // ============================
             // ARABIC OPTION
             // ============================
             Obx(() {
               bool active = controller.selectedValue.value == 'ar';
-      
+
               return GestureDetector(
                 onTap: () => controller.selectedValue.value = 'ar',
                 child: Container(
@@ -140,16 +139,15 @@ class LangSelectionView extends GetView<LangSelectionController> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(18),
                     border: Border.all(
-                      color: active ? AppColors.primaryLight : Colors.grey.shade400,
+                      color: active
+                          ? AppColors.primaryLight
+                          : Colors.grey.shade400,
                       width: 2,
                     ),
                   ),
                   child: Row(
                     children: [
-                      
-      
                       const SizedBox(width: 15),
-      
                       const Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,12 +170,13 @@ class LangSelectionView extends GetView<LangSelectionController> {
                           ],
                         ),
                       ),
-      
                       Icon(
                         active
                             ? Icons.radio_button_checked
                             : Icons.radio_button_off,
-                        color: active ? AppColors.secondaryLight : Colors.grey.shade400,
+                        color: active
+                            ? AppColors.secondaryLight
+                            : Colors.grey.shade400,
                         size: 28,
                       ),
                     ],
@@ -185,9 +184,9 @@ class LangSelectionView extends GetView<LangSelectionController> {
                 ),
               );
             }),
-      
+
             const Spacer(),
-      
+
             // ============================
             // CONTINUE BUTTON
             // ============================
@@ -212,7 +211,7 @@ class LangSelectionView extends GetView<LangSelectionController> {
                 ),
               ),
             ),
-      
+
             const SizedBox(height: 20),
           ],
         ),
@@ -220,7 +219,6 @@ class LangSelectionView extends GetView<LangSelectionController> {
     );
   }
 }
-
 
 // // my_new_app/lib/app/views/lang_selection_view.dart
 // import 'package:flutter/material.dart';

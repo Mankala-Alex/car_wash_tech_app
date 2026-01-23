@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:my_new_app/app/controllers/dashboard/service_history_controller.dart';
+import 'package:car_wash_technician/app/controllers/dashboard/service_history_controller.dart';
 
 class ServiceHistoryBinding extends Bindings {
   @override

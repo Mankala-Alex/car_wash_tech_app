@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_new_app/app/controllers/dashboard/dashboard_controller.dart';
-import 'package:my_new_app/app/models/bookings/history_model.dart';
-import 'package:my_new_app/app/routes/app_routes.dart';
-import 'package:my_new_app/app/theme/app_theme.dart';
+import 'package:car_wash_technician/app/controllers/dashboard/dashboard_controller.dart';
+import 'package:car_wash_technician/app/models/bookings/history_model.dart';
+import 'package:car_wash_technician/app/routes/app_routes.dart';
+import 'package:car_wash_technician/app/theme/app_theme.dart';
 
 class Page2View extends GetView<DashboardController> {
   const Page2View({super.key});

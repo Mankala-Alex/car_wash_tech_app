@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:my_new_app/app/routes/app_routes.dart';
+import 'package:car_wash_technician/app/routes/app_routes.dart';
 import 'package:pinput/pinput.dart';
 import '../../custome_widgets/custome_form_field_gaps.dart';
 import '../../theme/app_theme.dart';

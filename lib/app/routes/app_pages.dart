@@ -1,23 +1,24 @@
+import 'package:car_wash_technician/app/bindings/dashboard/notification_bindings.dart';
+import 'package:car_wash_technician/app/views/dashboard/notifications_view.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:my_new_app/app/bindings/dashboard/dashboard_bindings.dart';
-import 'package:my_new_app/app/bindings/dashboard/service_history_binding.dart';
-import 'package:my_new_app/app/bindings/profile/change_password_binding.dart';
-import 'package:my_new_app/app/bindings/washing_flow/all_tasks_bindings.dart';
-import 'package:my_new_app/app/bindings/washing_flow/car_status_bindings.dart';
-import 'package:my_new_app/app/bindings/washing_flow/cust_location_bindings.dart';
-import 'package:my_new_app/app/bindings/washing_flow/payment_screen_binding.dart';
-import 'package:my_new_app/app/bindings/washing_flow/pre_task_checklist_bindings.dart';
-import 'package:my_new_app/app/bindings/washing_flow/task_completed_bindings.dart';
-import 'package:my_new_app/app/bindings/washing_flow/task_details_bindings.dart';
-import 'package:my_new_app/app/views/dashboard/dashboard_view.dart';
-import 'package:my_new_app/app/views/dashboard/service_history_view.dart';
-import 'package:my_new_app/app/views/profile/change_password_view.dart';
-import 'package:my_new_app/app/views/washing_flow/all_tasks_view.dart';
-import 'package:my_new_app/app/views/washing_flow/car_inspection.dart';
-import 'package:my_new_app/app/views/washing_flow/cust_location_view.dart';
-import 'package:my_new_app/app/views/washing_flow/payment_screen_view.dart';
-import 'package:my_new_app/app/views/washing_flow/task_completed_view.dart';
-import 'package:my_new_app/app/views/washing_flow/task_details_view.dart';
+import 'package:car_wash_technician/app/bindings/dashboard/dashboard_bindings.dart';
+import 'package:car_wash_technician/app/bindings/dashboard/service_history_binding.dart';
+import 'package:car_wash_technician/app/bindings/profile/change_password_binding.dart';
+import 'package:car_wash_technician/app/bindings/washing_flow/all_tasks_bindings.dart';
+import 'package:car_wash_technician/app/bindings/washing_flow/car_status_bindings.dart';
+import 'package:car_wash_technician/app/bindings/washing_flow/cust_location_bindings.dart';
+import 'package:car_wash_technician/app/bindings/washing_flow/payment_screen_binding.dart';
+import 'package:car_wash_technician/app/bindings/washing_flow/task_completed_bindings.dart';
+import 'package:car_wash_technician/app/bindings/washing_flow/task_details_bindings.dart';
+import 'package:car_wash_technician/app/views/dashboard/dashboard_view.dart';
+import 'package:car_wash_technician/app/views/dashboard/service_history_view.dart';
+import 'package:car_wash_technician/app/views/profile/change_password_view.dart';
+import 'package:car_wash_technician/app/views/washing_flow/all_tasks_view.dart';
+import 'package:car_wash_technician/app/views/washing_flow/car_inspection.dart';
+import 'package:car_wash_technician/app/views/washing_flow/cust_location_view.dart';
+import 'package:car_wash_technician/app/views/washing_flow/payment_screen_view.dart';
+import 'package:car_wash_technician/app/views/washing_flow/task_completed_view.dart';
+import 'package:car_wash_technician/app/views/washing_flow/task_details_view.dart';
 
 import '../bindings/auth/lang_selection_binding.dart';
 import '../bindings/auth/login_binding.dart';
@@ -109,6 +110,11 @@ class AppPages {
       name: Routes.langChange,
       page: () => const LangSelectionView(),
       binding: LangSelectionBindings(),
+    ),
+    GetPage(
+      name: Routes.notifications,
+      page: () => const NotificationsView(),
+      binding: NotificationBindings(),
     ),
   ];
 }

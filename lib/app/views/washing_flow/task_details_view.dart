@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_new_app/app/controllers/washing_flow/task_details_controller.dart';
-import 'package:my_new_app/app/theme/app_theme.dart';
+import 'package:car_wash_technician/app/controllers/washing_flow/task_details_controller.dart';
+import 'package:car_wash_technician/app/theme/app_theme.dart';
 
 class TaskDetailsView extends GetView<TaskDetailsController> {
   const TaskDetailsView({super.key});
@@ -16,8 +16,8 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
           backgroundColor: AppColors.bgLight,
           elevation: 0,
           automaticallyImplyLeading: false,
-          title: Center(
-            child: const Text(
+          title: const Center(
+            child: Text(
               "Task Details",
               style: TextStyle(
                 color: Colors.black,

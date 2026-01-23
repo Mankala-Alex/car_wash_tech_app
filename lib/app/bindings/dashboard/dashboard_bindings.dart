@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:my_new_app/app/controllers/dashboard/dashboard_controller.dart';
-import 'package:my_new_app/app/services/socket_service.dart';
+import 'package:car_wash_technician/app/controllers/dashboard/dashboard_controller.dart';
+import 'package:car_wash_technician/app/services/socket_service.dart';
 
 class DashboardBindings extends Bindings {
   @override

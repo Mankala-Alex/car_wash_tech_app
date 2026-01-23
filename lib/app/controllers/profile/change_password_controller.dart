@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
-import 'package:my_new_app/app/helpers/flutter_toast.dart';
-import 'package:my_new_app/app/models/profile/change_password_model.dart';
-import 'package:my_new_app/app/repositories/profile/profile_repostory.dart';
+import 'package:car_wash_technician/app/helpers/flutter_toast.dart';
+import 'package:car_wash_technician/app/models/profile/change_password_model.dart';
+import 'package:car_wash_technician/app/repositories/profile/profile_repostory.dart';
 
 class ChangePasswordController extends GetxController {
   final ProfileRepository repository = ProfileRepository();

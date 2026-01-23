@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_new_app/app/config/constants.dart';
-import 'package:my_new_app/app/controllers/dashboard/service_history_controller.dart';
-import 'package:my_new_app/app/custome_widgets/skeleton_box.dart';
-import 'package:my_new_app/app/theme/app_theme.dart';
+import 'package:car_wash_technician/app/config/constants.dart';
+import 'package:car_wash_technician/app/controllers/dashboard/service_history_controller.dart';
+import 'package:car_wash_technician/app/custome_widgets/skeleton_box.dart';
+import 'package:car_wash_technician/app/theme/app_theme.dart';
 
 class ServiceHistoryView extends GetView<ServiceHistoryController> {
   const ServiceHistoryView({super.key});
@@ -137,7 +137,7 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Vehicle Details",
+            "Vehicle Detail",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -185,8 +185,14 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
                   itemBuilder: (_, i) {
                     final imagePath = images[i];
                     // Clean the path - remove backslashes and ensure it starts with /
-                    final cleanPath = imagePath.replaceAll("\\", "/");
-                    final fullUrl = Constants.imageBaseUrl + cleanPath;
+                    String cleanPath = imagePath.replaceAll("\\", "/");
+
+// Ensure leading slash
+                    if (!cleanPath.startsWith("/")) {
+                      cleanPath = "/$cleanPath";
+                    }
+
+                    final fullUrl = "${Constants.imageBaseUrl}$cleanPath";
 
                     // Debug logging
                     print("Image URL: $fullUrl");

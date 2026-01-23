@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:my_new_app/app/helpers/flutter_toast.dart';
-import 'package:my_new_app/app/helpers/secure_store.dart';
-import 'package:my_new_app/app/helpers/shared_preferences.dart';
-import 'package:my_new_app/app/repositories/auth/auth_repository.dart';
+import 'package:car_wash_technician/app/helpers/flutter_toast.dart';
+import 'package:car_wash_technician/app/helpers/secure_store.dart';
+import 'package:car_wash_technician/app/helpers/shared_preferences.dart';
+import 'package:car_wash_technician/app/repositories/auth/auth_repository.dart';
 import '../../routes/app_routes.dart';
 
 class LoginController extends GetxController {

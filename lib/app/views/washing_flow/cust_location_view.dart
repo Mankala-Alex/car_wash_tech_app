@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_new_app/app/controllers/washing_flow/cust_location_controller.dart';
-import 'package:my_new_app/app/theme/app_theme.dart';
+import 'package:car_wash_technician/app/controllers/washing_flow/cust_location_controller.dart';
+import 'package:car_wash_technician/app/theme/app_theme.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 
 class CustLocationView extends GetView<CustLocationController> {

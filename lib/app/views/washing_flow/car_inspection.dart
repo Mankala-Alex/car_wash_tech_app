@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_new_app/app/controllers/washing_flow/car_status_controller.dart';
-import 'package:my_new_app/app/theme/app_theme.dart';
+import 'package:car_wash_technician/app/controllers/washing_flow/car_status_controller.dart';
+import 'package:car_wash_technician/app/theme/app_theme.dart';
 
 class CarStatusView extends GetView<CarStatusController> {
   const CarStatusView({super.key});

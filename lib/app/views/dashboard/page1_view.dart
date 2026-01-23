@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_new_app/app/custome_widgets/custome_confirmation_dialog.dart';
-import 'package:my_new_app/app/models/technician_model/booking_model.dart';
-import 'package:my_new_app/app/routes/app_routes.dart';
-import 'package:my_new_app/app/theme/app_theme.dart';
+import 'package:car_wash_technician/app/custome_widgets/custome_confirmation_dialog.dart';
+import 'package:car_wash_technician/app/models/technician_model/booking_model.dart';
+import 'package:car_wash_technician/app/routes/app_routes.dart';
+import 'package:car_wash_technician/app/theme/app_theme.dart';
 import '../../controllers/dashboard/dashboard_controller.dart';
 
 class Page1View extends GetView<DashboardController> {
@@ -28,33 +28,28 @@ class Page1View extends GetView<DashboardController> {
             const SizedBox(width: 12),
 
             // Name + Greeting
-            // Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     Text(
-            //       "Good Morning,",
-            //       style: TextStyle(fontSize: 12, color: Colors.black54),
-            //     ),
-            //     Obx(
-            //       () => Text(
-            //         controller.employeeName.value,
-            //         style: TextStyle(
-            //           fontSize: 16,
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.black,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
+            Obx(
+              () => Text(
+                controller.employeeName.value,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            ),
           ],
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 12.0),
-            child:
-                Icon(Icons.notifications_none, color: Colors.black, size: 28),
-          ),
+              padding: const EdgeInsets.only(right: 12.0),
+              child: IconButton(
+                onPressed: () {
+                  Get.toNamed(Routes.notifications);
+                },
+                icon: const Icon(Icons.notifications_none,
+                    color: Colors.black, size: 28),
+              )),
         ],
       ),
 

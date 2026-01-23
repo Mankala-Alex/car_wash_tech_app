@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:my_new_app/app/models/bookings/history_model.dart';
+import 'package:car_wash_technician/app/models/bookings/history_model.dart';
 
 class ServiceHistoryController extends GetxController {
   late HistoryBookingModel booking;

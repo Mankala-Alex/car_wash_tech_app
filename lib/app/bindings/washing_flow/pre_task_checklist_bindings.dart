@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:my_new_app/app/controllers/washing_flow/pre_task_checklist_controller.dart';
+import 'package:car_wash_technician/app/controllers/washing_flow/pre_task_checklist_controller.dart';
 
 class PreTaskChecklistBindings extends Bindings {
   @override

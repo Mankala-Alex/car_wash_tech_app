@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:my_new_app/app/controllers/washing_flow/task_completed_controller.dart';
+import 'package:car_wash_technician/app/controllers/washing_flow/task_completed_controller.dart';
 
 class TaskCompletedBindings extends Bindings {
   @override

@@ -3,7 +3,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart' as dio;
 
-import 'package:my_new_app/app/config/environment.dart';
+import 'package:car_wash_technician/app/config/environment.dart';
 import '../../services/endpoints.dart';
 import '../../helpers/secure_store.dart';
 import '../../helpers/shared_preferences.dart';

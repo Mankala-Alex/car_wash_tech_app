@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_new_app/app/controllers/dashboard/dashboard_controller.dart';
-import 'package:my_new_app/app/custome_widgets/custome_confirmation_dialog.dart';
-import 'package:my_new_app/app/routes/app_routes.dart';
-import 'package:my_new_app/app/theme/app_theme.dart';
+import 'package:car_wash_technician/app/controllers/dashboard/dashboard_controller.dart';
+import 'package:car_wash_technician/app/custome_widgets/custome_confirmation_dialog.dart';
+import 'package:car_wash_technician/app/routes/app_routes.dart';
+import 'package:car_wash_technician/app/theme/app_theme.dart';
 
 class Page3View extends GetView<DashboardController> {
   const Page3View({super.key});
@@ -105,19 +105,24 @@ class Page3View extends GetView<DashboardController> {
                           )),
                     ],
                   ),
-                )
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                _statsRow(controller),
+                const SizedBox(
+                  height: 20,
+                ),
               ],
             ),
-
+            const Spacer(),
             // -----------------------------
             // STATS (Rating / Jobs / On-Time)
             // -----------------------------
 
-            Spacer(),
             // -----------------------------
             // SETTINGS OPTIONS
             // -----------------------------
-
             _settingsTile(
               "Change Language",
               onTap: () {
@@ -131,37 +136,154 @@ class Page3View extends GetView<DashboardController> {
                 Get.toNamed(Routes.changepassword);
               },
             ),
-            const Divider(),
-
-            _settingsTile(
-              "Log Out",
-              isLogout: true,
-              onTap: () {
-                Get.dialog(
-                  CustomConfirmationDialog(
-                    header: "Logout",
-                    body: "Are you sure you want to logout?",
-                    yesText: "Logout",
-                    onYes: () {
-                      Get.back();
-                      controller.logout();
-                    },
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  barrierDismissible: false,
-                );
-              },
+                ),
+                onPressed: () {
+                  Get.dialog(
+                    CustomConfirmationDialog(
+                      header: "Logout",
+                      body: "Are you sure you want to logout?",
+                      yesText: "Logout",
+                      onYes: () {
+                        Get.back();
+                        controller.logout();
+                      },
+                    ),
+                    barrierDismissible: false,
+                  );
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.logout),
+                    SizedBox(width: 8),
+                    Text(
+                      "Log Out",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
 
-            const SizedBox(height: 40),
+            //const SizedBox(height: 40),
           ],
         ),
       ),
     );
   }
 
+  Widget _statsRow(DashboardController controller) {
+    return Row(
+      children: [
+        _statBox(
+          value: "4.8",
+          label: "Avg Rating",
+          icon: Icons.star,
+          iconColor: Colors.orange,
+        ),
+        const SizedBox(width: 10),
+        _statBox(
+          value: "124",
+          label: "Jobs Done",
+        ),
+        const SizedBox(width: 10),
+        _statBox(
+          value: "98%",
+          label: "On-Time",
+        ),
+      ],
+    );
+  }
+
+  Widget _statBox({
+    required String value,
+    required String label,
+    IconData? icon,
+    Color? iconColor,
+  }) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 14),
+        decoration: BoxDecoration(
+          color: const Color(0xfffff1dc), // light orange
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (icon != null) ...[
+                  const SizedBox(width: 4),
+                  Icon(icon, size: 16, color: iconColor),
+                ]
+              ],
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.black54,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Widget _settingsTile(
+  //   String title, {
+  //   required VoidCallback onTap,
+  // }) {
+  //   return ListTile(
+  //     contentPadding: EdgeInsets.zero,
+  //     dense: true,
+  //     visualDensity: const VisualDensity(vertical: -1),
+  //     onTap: onTap,
+  //     title: Text(
+  //       title,
+  //       style: const TextStyle(
+  //         color: Colors.black,
+  //         fontWeight: FontWeight.w600,
+  //       ),
+  //     ),
+  //     trailing: const Icon(
+  //       Icons.arrow_forward_ios,
+  //       size: 16,
+  //       color: Colors.black54,
+  //     ),
+  //   );
+  // }
+
   Widget _settingsTile(
     String title, {
-    bool isLogout = false,
     VoidCallback? onTap,
   }) {
     return ListTile(
@@ -169,14 +291,12 @@ class Page3View extends GetView<DashboardController> {
       onTap: onTap,
       title: Text(
         title,
-        style: TextStyle(
-          color: isLogout ? Colors.red : Colors.black,
+        style: const TextStyle(
+          color: Colors.black,
           fontWeight: FontWeight.w600,
         ),
       ),
-      trailing: isLogout
-          ? const Icon(Icons.logout, color: Colors.red)
-          : const Icon(Icons.arrow_forward_ios, size: 18),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 18),
     );
   }
 }

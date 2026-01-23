@@ -18,9 +18,15 @@ class SplashScreenView extends GetView<SplashScreenController> {
     });
 
     return Scaffold(
-        backgroundColor: customTheme.bgColor,
-        body: const Center(
-          child: Text("splash screen"),
-        ));
+      backgroundColor: customTheme.bgColor,
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Image.asset(
+          "assets/car_tech/splash.png",
+          fit: BoxFit.cover, // 👈 fills entire screen
+        ),
+      ),
+    );
   }
 }
