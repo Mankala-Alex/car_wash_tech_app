@@ -13,14 +13,10 @@ class Historymodel {
       bookings: json["bookings"] == null
           ? []
           : List<HistoryBookingModel>.from(
-              json["bookings"]!.map((x) => HistoryBookingModel.fromJson(x))),
+              json["bookings"].map((x) => HistoryBookingModel.fromJson(x)),
+            ),
     );
   }
-
-  Map<String, dynamic> toJson() => {
-        "success": success,
-        "bookings": bookings.map((x) => x.toJson()).toList(),
-      };
 }
 
 class HistoryBookingModel {
@@ -40,8 +36,8 @@ class HistoryBookingModel {
     required this.createdAt,
     required this.updatedAt,
     required this.slotId,
-    required this.beforeImages,
-    required this.afterImages,
+    required this.images,
+    required this.videos,
   });
 
   final String id;
@@ -60,9 +56,8 @@ class HistoryBookingModel {
   final DateTime? updatedAt;
   final int slotId;
 
-  /// ✅ NEW
-  final List<String> beforeImages;
-  final List<String> afterImages;
+  final List<BookingImage> images;
+  final List<BookingVideo> videos;
 
   factory HistoryBookingModel.fromJson(Map<String, dynamic> json) {
     return HistoryBookingModel(
@@ -81,34 +76,58 @@ class HistoryBookingModel {
       createdAt: DateTime.tryParse(json["created_at"] ?? ""),
       updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
       slotId: json["slot_id"] ?? 0,
-
-      /// ✅ IMAGE LISTS (SAFE PARSING)
-      beforeImages: json["before_images"] == null
+      images: json["images"] == null
           ? []
-          : List<String>.from(json["before_images"]),
-      afterImages: json["after_images"] == null
+          : List<BookingImage>.from(
+              json["images"].map((x) => BookingImage.fromJson(x)),
+            ),
+      videos: json["videos"] == null
           ? []
-          : List<String>.from(json["after_images"]),
+          : List<BookingVideo>.from(
+              json["videos"].map((x) => BookingVideo.fromJson(x)),
+            ),
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "booking_code": bookingCode,
-        "customer_id": customerId,
-        "customer_name": customerName,
-        "vehicle": vehicle,
-        "service_id": serviceId,
-        "service_name": serviceName,
-        "scheduled_at": scheduledAt?.toIso8601String(),
-        "washer_id": washerId,
-        "washer_name": washerName,
-        "status": status,
-        "amount": amount,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
-        "slot_id": slotId,
-        "before_images": beforeImages,
-        "after_images": afterImages,
-      };
+  // 🔥 CLEAN FILTERED LISTS (USE THESE IN UI)
+
+  List<String> get beforeImages =>
+      images.where((i) => i.type == "BEFORE").map((i) => i.url).toList();
+
+  List<String> get afterImages =>
+      images.where((i) => i.type == "AFTER").map((i) => i.url).toList();
+
+  List<String> get beforeVideos =>
+      videos.where((v) => v.type == "BEFORE").map((v) => v.url).toList();
+
+  List<String> get afterVideos =>
+      videos.where((v) => v.type == "AFTER").map((v) => v.url).toList();
+}
+
+class BookingImage {
+  final String url;
+  final String type;
+
+  BookingImage({required this.url, required this.type});
+
+  factory BookingImage.fromJson(Map<String, dynamic> json) {
+    return BookingImage(
+      url: json["image_url"],
+      type: json["image_type"],
+    );
+  }
+}
+
+class BookingVideo {
+  final String url;
+  final String type;
+
+  BookingVideo({required this.url, required this.type});
+
+  factory BookingVideo.fromJson(Map<String, dynamic> json) {
+    return BookingVideo(
+      url: json["video_url"],
+      type: json["video_type"],
+    );
+  }
 }

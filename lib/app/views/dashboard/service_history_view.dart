@@ -1,3 +1,6 @@
+import 'package:car_wash_technician/app/helpers/fullscreen_video_history.dart';
+import 'package:car_wash_technician/app/helpers/video_thumbnail.dart';
+import 'package:car_wash_technician/app/models/bookings/history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:car_wash_technician/app/config/constants.dart';
@@ -10,7 +13,7 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
 
   @override
   Widget build(BuildContext context) {
-    final booking = controller.booking;
+    final HistoryBookingModel booking = Get.arguments as HistoryBookingModel;
 
     return Scaffold(
       backgroundColor: AppColors.bgLight,
@@ -39,9 +42,37 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
             const SizedBox(height: 20),
             _vehicleCard(booking),
             const SizedBox(height: 24),
-            _imageSection("Before Wash", booking.beforeImages),
+            _imageSection(
+              "Before Wash",
+              booking.images
+                  .where((e) => e.type == "BEFORE")
+                  .map((e) => e.url)
+                  .toList(),
+            ),
+            const SizedBox(height: 16),
+            _videoSection(
+              "Before Wash - Videos",
+              booking.videos
+                  .where((e) => e.type == "BEFORE")
+                  .map((e) => e.url)
+                  .toList(),
+            ),
             const SizedBox(height: 24),
-            _imageSection("After Wash", booking.afterImages),
+            _imageSection(
+              "After Wash",
+              booking.images
+                  .where((e) => e.type == "AFTER")
+                  .map((e) => e.url)
+                  .toList(),
+            ),
+            const SizedBox(height: 16),
+            _videoSection(
+              "After Wash - Videos",
+              booking.videos
+                  .where((e) => e.type == "AFTER")
+                  .map((e) => e.url)
+                  .toList(),
+            ),
             const SizedBox(height: 24),
             _serviceSummary(booking),
             const SizedBox(height: 30),
@@ -197,53 +228,114 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
                     // Debug logging
                     print("Image URL: $fullUrl");
 
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: SizedBox(
-                        width: 260,
-                        child: Image.network(
-                          fullUrl,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(() => FullscreenMediaViewer(
+                              url: fullUrl,
+                              isVideo: false,
+                            ));
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: SizedBox(
+                          width: 260,
+                          child: Image.network(
+                            fullUrl,
+                            fit: BoxFit.cover,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
 
-                            return const SkeletonBox(
-                              width: 260,
-                              height: 160,
-                              radius: 16,
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            print("Image load error for $fullUrl: $error");
-                            return Container(
-                              color: Colors.grey.shade200,
-                              alignment: Alignment.center,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.broken_image,
-                                    size: 40,
-                                    color: Colors.grey,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Failed to load\n$cleanPath",
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.grey,
+                              return const SkeletonBox(
+                                width: 260,
+                                height: 160,
+                                radius: 16,
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              print("Image load error for $fullUrl: $error");
+                              return Container(
+                                color: Colors.grey.shade200,
+                                alignment: Alignment.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.broken_image,
+                                      size: 40,
+                                      color: Colors.grey,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Failed to load\n$cleanPath",
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.grey,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
+                    );
+                  },
+                ),
+        ),
+      ],
+    );
+  }
+
+// ================= VIDEOS =================
+  Widget _videoSection(String title, List<String> videos) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          height: 160,
+          child: videos.isEmpty
+              ? const Center(child: Text("No videos available"))
+              : ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: videos.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 12),
+                  itemBuilder: (_, i) {
+                    final videoPath = videos[i];
+
+                    String cleanPath = videoPath.replaceAll("\\", "/");
+
+                    if (!cleanPath.startsWith("/")) {
+                      cleanPath = "/$cleanPath";
+                    }
+
+                    final fileName = cleanPath.split('/').last;
+
+                    final fullUrl =
+                        "${Constants.imageBaseUrl}/api/employee/bookings/stream/$fileName";
+
+                    print("TECH VIDEO URL: $fullUrl");
+
+                    return VideoThumbnail(
+                      videoUrl: fullUrl,
+                      onTap: () {
+                        Get.to(() => FullscreenMediaViewer(
+                              url: fullUrl,
+                              isVideo: true,
+                            ));
+                      },
                     );
                   },
                 ),

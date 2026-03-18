@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:car_wash_technician/app/helpers/fullscreen_image_view.dart';
+import 'package:car_wash_technician/app/helpers/fullscreen_video_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:car_wash_technician/app/controllers/washing_flow/car_status_controller.dart';
@@ -93,13 +95,28 @@ class CarStatusView extends GetView<CarStatusController> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
+                        // Images
                         ...controller.beforePhotos.asMap().entries.map(
-                              (e) => _photoBox(e.value,
-                                  () => controller.removeBefore(e.key)),
+                              (e) => _photoBox(
+                                e.value,
+                                () => controller.removeBefore(e.key),
+                              ),
                             ),
-                        if (controller.beforePhotos.length < 5)
+
+                        // Videos (BESIDE images)
+                        ...controller.beforeVideos.map(
+                          (file) => _videoBox(
+                            file,
+                            () => controller.beforeVideos.remove(file),
+                          ),
+                        ),
+
+                        // Add button
+                        if (controller.beforePhotos.length +
+                                controller.beforeVideos.length <
+                            5)
                           _addPhotoBox(() =>
-                              controller.showImageSourceSheet(isBefore: true))
+                              controller.showImageSourceSheet(isBefore: true)),
                       ],
                     ),
                   )),
@@ -123,13 +140,28 @@ class CarStatusView extends GetView<CarStatusController> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
+                        // Images
                         ...controller.afterPhotos.asMap().entries.map(
                               (e) => _photoBox(
-                                  e.value, () => controller.removeAfter(e.key)),
+                                e.value,
+                                () => controller.removeAfter(e.key),
+                              ),
                             ),
-                        if (controller.afterPhotos.length < 5)
+
+                        // Videos
+                        ...controller.afterVideos.map(
+                          (file) => _videoBox(
+                            file,
+                            () => controller.afterVideos.remove(file),
+                          ),
+                        ),
+
+                        // Add button
+                        if (controller.afterPhotos.length +
+                                controller.afterVideos.length <
+                            5)
                           _addPhotoBox(() =>
-                              controller.showImageSourceSheet(isBefore: false))
+                              controller.showImageSourceSheet(isBefore: false)),
                       ],
                     ),
                   )),
@@ -177,27 +209,75 @@ class CarStatusView extends GetView<CarStatusController> {
 
   // PHOTO BOX (Filled)
   Widget _photoBox(File file, VoidCallback onDelete) {
-    return Container(
-      margin: const EdgeInsets.only(right: 12),
-      width: 150,
-      height: 160,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        image: DecorationImage(image: FileImage(file), fit: BoxFit.cover),
-      ),
-      child: Align(
-        alignment: Alignment.topRight,
-        child: GestureDetector(
-          onTap: onDelete,
-          child: Container(
-            margin: const EdgeInsets.all(6),
-            padding: const EdgeInsets.all(5),
-            decoration: const BoxDecoration(
-              color: Colors.black54,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.close, size: 20, color: Colors.white),
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => FullscreenImageView(file: file));
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: 12),
+        width: 150,
+        height: 160,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          image: DecorationImage(
+            image: FileImage(file),
+            fit: BoxFit.cover,
           ),
+        ),
+        child: Align(
+          alignment: Alignment.topRight,
+          child: GestureDetector(
+            onTap: onDelete,
+            child: Container(
+              margin: const EdgeInsets.all(6),
+              padding: const EdgeInsets.all(5),
+              decoration: const BoxDecoration(
+                color: Colors.black54,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.close, size: 20, color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+// VIDEO BOX (Preview)
+  Widget _videoBox(File file, VoidCallback onDelete) {
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => FullscreenVideoView(file: file));
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: 12),
+        width: 150,
+        height: 160,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          color: Colors.black12,
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            const Icon(
+              Icons.play_circle_fill,
+              size: 50,
+              color: Colors.black54,
+            ),
+            Positioned(
+              top: 6,
+              right: 6,
+              child: GestureDetector(
+                onTap: onDelete,
+                child: const CircleAvatar(
+                  radius: 12,
+                  backgroundColor: Colors.black54,
+                  child: Icon(Icons.close, size: 16, color: Colors.white),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

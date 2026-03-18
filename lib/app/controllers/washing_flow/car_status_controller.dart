@@ -21,6 +21,8 @@ class CarStatusController extends GetxController {
 
   final beforePhotos = <File>[].obs;
   final afterPhotos = <File>[].obs;
+  final beforeVideos = <File>[].obs;
+  final afterVideos = <File>[].obs;
 
   final isLoading = false.obs;
 
@@ -30,7 +32,7 @@ class CarStatusController extends GetxController {
     super.onInit();
   }
 
-  // ================= IMAGE PICK =================
+// ================= IMAGE PICK =================
 
   Future<void> _pickImage({
     required ImageSource source,
@@ -49,6 +51,23 @@ class CarStatusController extends GetxController {
       beforePhotos.add(file);
     } else {
       afterPhotos.add(file);
+    }
+  }
+
+  Future<void> _pickVideo({
+    required ImageSource source,
+    required bool isBefore,
+  }) async {
+    final XFile? video = await picker.pickVideo(source: source);
+
+    if (video == null) return;
+
+    final file = File(video.path);
+
+    if (isBefore) {
+      beforeVideos.add(file);
+    } else {
+      afterVideos.add(file);
     }
   }
 
@@ -85,6 +104,28 @@ class CarStatusController extends GetxController {
                 );
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.videocam),
+              title: const Text("Record Video"),
+              onTap: () {
+                Get.back();
+                _pickVideo(
+                  source: ImageSource.camera,
+                  isBefore: isBefore,
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.video_library),
+              title: const Text("Pick Video"),
+              onTap: () {
+                Get.back();
+                _pickVideo(
+                  source: ImageSource.gallery,
+                  isBefore: isBefore,
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -102,12 +143,15 @@ class CarStatusController extends GetxController {
     final empId = await SharedPrefsHelper.getString("employeeId");
 
     try {
-      await imageRepo.uploadImages(
+      await imageRepo.uploadMedia(
         bookingId: booking.id,
         employeeId: empId,
         imageType: "BEFORE",
+        videoType: "BEFORE", // ✅ THIS IS REQUIRED
         images: beforePhotos,
+        videos: beforeVideos,
       );
+
       return true;
     } catch (e) {
       final errorMsg = 'Before images: ${e.toString()}';
@@ -122,12 +166,15 @@ class CarStatusController extends GetxController {
     final empId = await SharedPrefsHelper.getString("employeeId");
 
     try {
-      await imageRepo.uploadImages(
+      await imageRepo.uploadMedia(
         bookingId: booking.id,
         employeeId: empId,
         imageType: "AFTER",
+        videoType: "AFTER", // ✅ THIS IS REQUIRED
         images: afterPhotos,
+        videos: afterVideos,
       );
+
       return true;
     } catch (e) {
       final errorMsg = 'After images: ${e.toString()}';

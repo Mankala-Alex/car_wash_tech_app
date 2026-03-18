@@ -208,8 +208,6 @@ class DashboardController extends GetxController {
                 createdAt: h.createdAt,
                 updatedAt: h.updatedAt,
                 slotId: h.slotId,
-                beforeImages: h.beforeImages,
-                afterImages: h.afterImages,
               ))
           .toList(),
     );

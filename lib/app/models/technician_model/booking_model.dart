@@ -18,6 +18,8 @@ class BookingModel {
   // For Future (Before / After Images)
   final List<String>? beforeImages;
   final List<String>? afterImages;
+  final List<String>? beforeVideos;
+  final List<String>? afterVideos;
 
   BookingModel({
     required this.id,
@@ -37,6 +39,8 @@ class BookingModel {
     required this.slotId,
     this.beforeImages,
     this.afterImages,
+    this.beforeVideos,
+    this.afterVideos,
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
@@ -62,6 +66,12 @@ class BookingModel {
       afterImages: json["after_images"] == null
           ? []
           : List<String>.from(json["after_images"]),
+      beforeVideos: json["before_videos"] == null
+          ? []
+          : List<String>.from(json["before_videos"]),
+      afterVideos: json["after_videos"] == null
+          ? []
+          : List<String>.from(json["after_videos"]),
     );
   }
 }

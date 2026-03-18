@@ -9,31 +9,29 @@ import '../../helpers/secure_store.dart';
 import '../../helpers/shared_preferences.dart';
 
 class BookingImageRepository {
-  Future<bool> uploadImages({
+  Future<bool> uploadMedia({
     required String bookingId,
     required String employeeId,
     required String imageType,
+    required String videoType,
     required List<File> images,
+    required List<File> videos,
   }) async {
-    // ✅ Create a fresh Dio instance (safe for multipart)
     final dio.Dio dioClient = dio.Dio();
 
     final token = await FlutterSecureStore()
         .getSingleValue(SharedPrefsHelper.accessToken);
-
-    // ✅ Build FormData correctly
     final dio.FormData formData = dio.FormData.fromMap({
       'booking_id': bookingId,
       'employee_id': employeeId,
       'image_type': imageType,
-      'images': images
-          .map(
-            (f) => dio.MultipartFile.fromFileSync(f.path),
-          )
-          .toList(),
+      'video_type': videoType, // ✅ ADD THIS
+      'images':
+          images.map((f) => dio.MultipartFile.fromFileSync(f.path)).toList(),
+      'videos':
+          videos.map((f) => dio.MultipartFile.fromFileSync(f.path)).toList(),
     });
 
-    // ✅ Make request
     final response = await dioClient.post(
       Environment.baseUrl + EndPoints.apiPostUploadImages,
       data: formData,

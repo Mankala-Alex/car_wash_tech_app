@@ -377,8 +377,16 @@ class Page1View extends GetView<DashboardController> {
             booking.customerName,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
+          const SizedBox(height: 8),
           Text(
             booking.serviceName,
+            style: const TextStyle(color: Colors.black54),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            booking.scheduledAt != null
+                ? booking.scheduledAt!.toLocal().toString().substring(0, 10)
+                : "--",
             style: const TextStyle(color: Colors.black54),
           ),
           const SizedBox(height: 8),
