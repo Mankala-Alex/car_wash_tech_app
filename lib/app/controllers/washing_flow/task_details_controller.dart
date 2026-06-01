@@ -33,7 +33,7 @@ class TaskDetailsController extends GetxController {
       // Convert to BookingModel
       final updatedBooking = BookingModel.fromJson(response.data["booking"]);
 
-      successToast("Work started!");
+      successToast("work_started".tr);
 
       // go to Car Status page
       Get.toNamed(
@@ -41,7 +41,7 @@ class TaskDetailsController extends GetxController {
         arguments: updatedBooking,
       );
     } catch (e) {
-      errorToast("Failed to start work");
+      errorToast("failed_to_start_work".tr);
     } finally {
       isLoading(false);
     }

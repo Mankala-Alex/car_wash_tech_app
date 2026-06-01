@@ -84,7 +84,7 @@ class CarStatusController extends GetxController {
           children: [
             ListTile(
               leading: const Icon(Icons.camera_alt),
-              title: const Text("Camera"),
+              title: Text("camera".tr),
               onTap: () {
                 Get.back();
                 _pickImage(
@@ -95,7 +95,7 @@ class CarStatusController extends GetxController {
             ),
             ListTile(
               leading: const Icon(Icons.photo_library),
-              title: const Text("Gallery"),
+              title: Text("gallery".tr),
               onTap: () {
                 Get.back();
                 _pickImage(
@@ -106,7 +106,7 @@ class CarStatusController extends GetxController {
             ),
             ListTile(
               leading: const Icon(Icons.videocam),
-              title: const Text("Record Video"),
+              title: Text("record_video".tr),
               onTap: () {
                 Get.back();
                 _pickVideo(
@@ -117,7 +117,7 @@ class CarStatusController extends GetxController {
             ),
             ListTile(
               leading: const Icon(Icons.video_library),
-              title: const Text("Pick Video"),
+              title: Text("pick_video".tr),
               onTap: () {
                 Get.back();
                 _pickVideo(
@@ -154,7 +154,7 @@ class CarStatusController extends GetxController {
 
       return true;
     } catch (e) {
-      final errorMsg = 'Before images: ${e.toString()}';
+      final errorMsg = '${"before_images_error".tr} ${e.toString()}';
       errorToast(errorMsg);
       return false;
     }
@@ -177,7 +177,7 @@ class CarStatusController extends GetxController {
 
       return true;
     } catch (e) {
-      final errorMsg = 'After images: ${e.toString()}';
+      final errorMsg = '${"after_images_error".tr} ${e.toString()}';
       errorToast(errorMsg);
       return false;
     }
@@ -194,26 +194,26 @@ class CarStatusController extends GetxController {
 
     try {
       if (beforePhotos.isEmpty || afterPhotos.isEmpty) {
-        errorToast("Please upload before & after images");
+        errorToast("please_upload_before_after_images".tr);
         return;
       }
 
       final beforeOk = await uploadBeforeImages();
       if (!beforeOk) {
-        errorToast("Failed to upload before images");
+        errorToast("failed_to_upload_before_images".tr);
         return;
       }
 
       final afterOk = await uploadAfterImages();
       if (!afterOk) {
-        errorToast("Failed to upload after images");
+        errorToast("failed_to_upload_after_images".tr);
         return;
       }
 
-      successToast("Images uploaded successfully!");
+      successToast("images_uploaded_successfully".tr);
       Get.toNamed(Routes.paymentScreen, arguments: booking);
     } catch (e) {
-      errorToast("Something went wrong");
+      errorToast("something_went_wrong".tr);
     } finally {
       // ✅ THIS ALWAYS RUNS
       isLoading(false);

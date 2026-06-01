@@ -33,7 +33,7 @@ class CustLocationController extends GetxController {
       // convert API response into BookingModel
       final updatedBooking = BookingModel.fromJson(response.data["booking"]);
 
-      successToast("Arrival confirmed");
+      successToast("arrived_confirmed".tr);
 
       // Navigate to Task Details with updated booking
       Get.toNamed(
@@ -41,7 +41,7 @@ class CustLocationController extends GetxController {
         arguments: updatedBooking,
       );
     } catch (e) {
-      errorToast("Failed to mark arrival");
+      errorToast("failed_to_mark_arrival".tr);
     } finally {
       isLoading(false);
     }

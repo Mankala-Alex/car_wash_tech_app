@@ -34,7 +34,7 @@ class PaymentScreenController extends GetxController {
 
   Future<void> completeWash() async {
     if (!isPaid.value) {
-      errorToast("Please collect payment first");
+      errorToast("please_collect_payment_first".tr);
       return;
     }
 
@@ -51,20 +51,20 @@ class PaymentScreenController extends GetxController {
       final response = await repository.postCompleteWash(body);
 
       if (response.data == null) {
-        errorToast("Failed to complete wash");
+        errorToast("failed_to_complete_wash".tr);
         return;
       }
 
       final result = Completedwashmodel.fromJson(response.data);
 
       if (result.success && result.booking != null) {
-        successToast("Wash completed successfully");
+        successToast("wash_completed_successfully".tr);
         Get.offAllNamed(
           Routes.taskCompleted,
           arguments: result.booking,
         );
       } else {
-        errorToast("Failed to complete wash");
+        errorToast("failed_to_complete_wash".tr);
       }
     } catch (e) {
       errorToast(e.toString());

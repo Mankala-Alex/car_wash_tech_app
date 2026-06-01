@@ -275,7 +275,7 @@ class DashboardController extends GetxController {
       );
     } catch (e) {
       print("Error fetching pending bookings: $e");
-      errorToast("Failed to load pending bookings");
+      errorToast("failed_to_load_pending_bookings".tr);
     }
   }
 
@@ -304,9 +304,9 @@ class DashboardController extends GetxController {
       todaysTasks.add(newBooking);
       calculateSummary();
 
-      successToast("Booking assigned");
+      successToast("booking_assigned".tr);
     } catch (e) {
-      errorToast("Failed to accept booking");
+      errorToast("failed_to_accept_booking".tr);
     }
   }
 
@@ -326,9 +326,9 @@ class DashboardController extends GetxController {
 
       pendingBookings.removeWhere((b) => b.id == booking.id);
       calculateSummary();
-      successToast("Booking rejected");
+      successToast("booking_rejected".tr);
     } catch (e) {
-      errorToast("Failed to reject booking");
+      errorToast("failed_to_reject_booking".tr);
     }
   }
 
@@ -352,7 +352,7 @@ class DashboardController extends GetxController {
       final employeeId = await SharedPrefsHelper.getString("employeeId");
 
       if (employeeId.isEmpty) {
-        errorToast("Employee ID not found");
+        errorToast("employee_id_not_found".tr);
         return;
       }
 
@@ -365,7 +365,7 @@ class DashboardController extends GetxController {
       historyBookings.assignAll(data.bookings);
     } catch (e) {
       print("Error fetching booking history: $e");
-      errorToast("Failed to load booking history");
+      errorToast("failed_to_load_booking_history".tr);
     }
   }
 

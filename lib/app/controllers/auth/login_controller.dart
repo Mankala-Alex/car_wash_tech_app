@@ -20,12 +20,12 @@ class LoginController extends GetxController {
     final password = passwordController.text.trim();
 
     if (employeeId.isEmpty) {
-      errorToast("Employee ID is required");
+      errorToast("employee_id_is_required".tr);
       return;
     }
 
     if (password.isEmpty) {
-      errorToast("Password is required");
+      errorToast("password_is_required".tr);
       return;
     }
 
@@ -59,7 +59,7 @@ class LoginController extends GetxController {
         Get.offAllNamed(Routes.dashboard);
       }
     } on DioException catch (e) {
-      errorToast(e.response?.data["message"] ?? "Invalid credentials");
+      errorToast(e.response?.data["message"] ?? "invalid_credentials".tr);
     }
   }
 }

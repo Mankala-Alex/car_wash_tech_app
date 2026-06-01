@@ -23,22 +23,22 @@ class ChangePasswordController extends GetxController {
     if (currentPasswordCtrl.text.trim().isEmpty ||
         newPasswordCtrl.text.trim().isEmpty ||
         confirmPasswordCtrl.text.trim().isEmpty) {
-      errorToast("All fields are required");
+      errorToast("all_fields_are_required".tr);
       return false;
     }
 
     if (newPasswordCtrl.text.length < 6) {
-      errorToast("New password must be at least 6 characters");
+      errorToast("new_password_must_be_at_least_6_characters".tr);
       return false;
     }
 
     if (currentPasswordCtrl.text == newPasswordCtrl.text) {
-      errorToast("New password must be different from current password");
+      errorToast("new_password_must_be_different_from_current_password".tr);
       return false;
     }
 
     if (newPasswordCtrl.text != confirmPasswordCtrl.text) {
-      errorToast("Passwords do not match");
+      errorToast("passwords_do_not_match".tr);
       return false;
     }
 
@@ -83,19 +83,19 @@ class ChangePasswordController extends GetxController {
       // 🔴 DO NOT LOGOUT HERE
       if (statusCode == 400 || statusCode == 401) {
         final message = data is Map
-            ? (data['error'] ?? data['message'] ?? 'Invalid request')
-            : 'Invalid request';
+            ? (data['error'] ?? data['message'] ?? "invalid_request".tr)
+            : "invalid_request".tr;
 
         errorToast(message);
         return;
       }
 
-      errorToast("Something went wrong. Please try again.");
+      errorToast("something_went_wrong_please_try_again".tr);
     }
 
     // ================= UNKNOWN ERROR =================
     catch (e) {
-      errorToast("Unexpected error occurred");
+      errorToast("unexpected_error_occurred".tr);
     } finally {
       isLoading.value = false;
     }
