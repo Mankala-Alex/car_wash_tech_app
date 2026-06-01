@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 import 'package:car_wash_technician/app/routes/app_routes.dart';
 import 'package:pinput/pinput.dart';
@@ -50,14 +51,14 @@ class _OtpScreenViewState extends State<OtpScreenView> {
                           SizedBox(height: screenWidth * 0.14),
                           SizedBox(height: screenWidth * 0.09),
                           Text(
-                            "Account Verification",
+                            "account_verification".tr,
                             style: textTheme.titleMedium?.copyWith(
                               color: customTheme.primaryColor,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           Container(
-                            margin: const EdgeInsets.only(top: 45),
+                            margin: EdgeInsets.only(top: 45),
                             padding: EdgeInsets.symmetric(
                               horizontal: screenWidth * 0.10,
                             ),
@@ -69,7 +70,7 @@ class _OtpScreenViewState extends State<OtpScreenView> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Enter OTP",
+                                      "enter_otp".tr,
                                       style: TextStyle(
                                         color: customTheme.textLightGray,
                                         fontSize: textTheme.bodySmall?.fontSize,
@@ -85,7 +86,7 @@ class _OtpScreenViewState extends State<OtpScreenView> {
                                         );
                                       },
                                       child: Text(
-                                        "Resend OTP",
+                                        "resend_otp".tr,
                                         style: TextStyle(
                                           color: customTheme.primaryColor,
                                           fontSize:
@@ -210,7 +211,7 @@ class _OtpScreenViewState extends State<OtpScreenView> {
                                           : customTheme.borderGray,
                                     ),
                                     child: Text(
-                                      "Continue",
+                                      "continue".tr,
                                       style: TextStyle(
                                         color: otp.length == 4
                                             ? Colors.white

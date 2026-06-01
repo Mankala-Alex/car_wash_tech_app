@@ -82,9 +82,9 @@ class Page1View extends GetView<DashboardController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Today's Summary",
-                      style: TextStyle(
+                    Text(
+                      "todays_summary".tr,
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -94,11 +94,11 @@ class Page1View extends GetView<DashboardController> {
                     Row(
                       children: [
                         _summaryBox(
-                            title: "TOTAL JOBS",
+                            title: "total_jobs".tr,
                             value: controller.todaysTotalJobs.value.toString()),
                         const SizedBox(width: 12),
                         _summaryBox(
-                            title: "EARNINGS",
+                            title: "earnings".tr,
                             value: "₹${controller.todaysEarnings.value}")
                       ],
                     ),
@@ -106,11 +106,11 @@ class Page1View extends GetView<DashboardController> {
                     Row(
                       children: [
                         _summaryBox(
-                            title: "PENDING",
+                            title: "pending".tr,
                             value: controller.todaysPending.value.toString()),
                         const SizedBox(width: 12),
                         _summaryBox(
-                            title: "COMPLETED",
+                            title: "completed".tr,
                             value: controller.todaysCompleted.value.toString())
                       ],
                     ),
@@ -120,9 +120,9 @@ class Page1View extends GetView<DashboardController> {
             ),
 
             const SizedBox(height: 20),
-            const Text(
-              "Todays Tasks",
-              style: TextStyle(
+            Text(
+              "todays_tasks".tr,
+              style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: Colors.black),
@@ -138,8 +138,8 @@ class Page1View extends GetView<DashboardController> {
                         height: 300,
                         width: 300,
                       ),
-                      const Text("No tasks available.",
-                          style: TextStyle(
+                      Text("no_tasks_available".tr,
+                          style: const TextStyle(
                               fontSize: 20,
                               color: Colors.black,
                               fontWeight: FontWeight.bold)),
@@ -156,9 +156,9 @@ class Page1View extends GetView<DashboardController> {
             }),
 
             const SizedBox(height: 20),
-            const Text(
-              "Pending Tasks",
-              style: TextStyle(
+            Text(
+              "pending_tasks".tr,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: Colors.black,
@@ -181,8 +181,8 @@ class Page1View extends GetView<DashboardController> {
                         height: 300,
                         width: 300,
                       ),
-                      const Text("No pending tasks available.",
-                          style: TextStyle(
+                      Text("no_pending_tasks_available".tr,
+                          style: const TextStyle(
                               fontSize: 20,
                               color: Colors.black,
                               fontWeight: FontWeight.bold)),
@@ -343,9 +343,9 @@ class Page1View extends GetView<DashboardController> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text(
-                "Start Work",
-                style: TextStyle(
+              child: Text(
+                "start_work".tr,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -419,10 +419,10 @@ class Page1View extends GetView<DashboardController> {
                   onPressed: () {
                     Get.dialog(
                       CustomConfirmationDialog(
-                        header: "Reject Booking",
-                        body: "Are you sure you want to reject this booking?",
-                        yesText: "Yes, Reject",
-                        noText: "No",
+                        header: "reject_booking".tr,
+                        body: "are_you_sure_you_want_to_reject_this_booking".tr,
+                        yesText: "yes_reject".tr,
+                        noText: "no".tr,
                         onYes: () async {
                           Get.back(); // close dialog first
                           await controller.rejectBooking(booking);
@@ -434,9 +434,9 @@ class Page1View extends GetView<DashboardController> {
                       barrierDismissible: false, // user must choose Yes/No
                     );
                   },
-                  child: const Text(
-                    "Reject",
-                    style: TextStyle(color: AppColors.errorLight),
+                  child: Text(
+                    "reject".tr,
+                    style: const TextStyle(color: AppColors.errorLight),
                   ),
                 ),
               ),
@@ -447,7 +447,7 @@ class Page1View extends GetView<DashboardController> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.successLight,
                   ),
-                  child: const Text("Accept"),
+                  child: Text("accept".tr),
                 ),
               ),
             ],

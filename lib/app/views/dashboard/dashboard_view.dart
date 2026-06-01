@@ -76,9 +76,9 @@ class DashboardView extends GetView<DashboardController> {
               ),
               items: List.generate(3, (index) {
                 List<String> labels = [
-                  "Home".tr,
-                  "History".tr,
-                  "Profile".tr,
+                  "home".tr,
+                  "history".tr,
+                  "profile".tr,
                 ];
                 List<String> icons = [
                   'assets/car_tech/home.png',

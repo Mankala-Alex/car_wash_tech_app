@@ -39,9 +39,9 @@ class LangSelectionView extends GetView<LangSelectionController> {
             // ============================
             // TITLE
             // ============================
-            const Text(
-              "Select Language",
-              style: TextStyle(
+            Text(
+              "select_language".tr,
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
                 color: Colors.black,
@@ -51,10 +51,10 @@ class LangSelectionView extends GetView<LangSelectionController> {
             const SizedBox(height: 10),
 
             // SUBTITLE
-            const Text(
-              "Please choose your preferred language to continue\nusing the technician app.",
+            Text(
+              "please_choose_your_preferred_language_to_continue".tr,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black54,
                 fontSize: 14,
                 height: 1.4,
@@ -86,21 +86,21 @@ class LangSelectionView extends GetView<LangSelectionController> {
                   child: Row(
                     children: [
                       const SizedBox(width: 15),
-                      const Expanded(
+                      Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "English",
-                              style: TextStyle(
+                              "english".tr,
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
                             SizedBox(height: 3),
                             Text(
-                              "English",
-                              style: TextStyle(
+                              "english".tr,
+                              style: const TextStyle(
                                 color: Colors.black54,
                                 fontSize: 14,
                               ),
@@ -148,7 +148,7 @@ class LangSelectionView extends GetView<LangSelectionController> {
                   child: Row(
                     children: [
                       const SizedBox(width: 15),
-                      const Expanded(
+                      Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -161,8 +161,8 @@ class LangSelectionView extends GetView<LangSelectionController> {
                             ),
                             SizedBox(height: 3),
                             Text(
-                              "Arabic",
-                              style: TextStyle(
+                              "arabic".tr,
+                              style: const TextStyle(
                                 color: Colors.black54,
                                 fontSize: 14,
                               ),
@@ -201,9 +201,9 @@ class LangSelectionView extends GetView<LangSelectionController> {
                     borderRadius: BorderRadius.circular(14),
                   ),
                 ),
-                child: const Text(
-                  "Continue",
-                  style: TextStyle(
+                child: Text(
+                  "continue".tr,
+                  style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,

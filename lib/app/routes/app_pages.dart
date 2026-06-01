@@ -23,10 +23,12 @@ import 'package:car_wash_technician/app/views/washing_flow/task_details_view.dar
 import '../bindings/auth/lang_selection_binding.dart';
 import '../bindings/auth/login_binding.dart';
 import '../bindings/auth/otp_binding.dart';
+import '../bindings/profile/lang_change_binding.dart';
 import '../bindings/splash_screen_bindings.dart';
 import '../views/auth/lang_selection_view.dart';
 import '../views/auth/login_page_view.dart';
 import '../views/auth/otp_screen_view.dart';
+import '../views/profile/lang_change_view.dart';
 import '../views/splash_screen_view.dart';
 import 'app_routes.dart';
 
@@ -108,8 +110,8 @@ class AppPages {
     ),
     GetPage(
       name: Routes.langChange,
-      page: () => const LangSelectionView(),
-      binding: LangSelectionBindings(),
+      page: () => const LangChangeView(),
+      binding: LangChangeBinding(),
     ),
     GetPage(
       name: Routes.notifications,

@@ -13,14 +13,14 @@ class NotificationsView extends GetView<NotificationsController> {
       appBar: AppBar(
         backgroundColor: AppColors.bgLight,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Get.back(),
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back, color: Colors.black),
+        //   onPressed: () => Get.back(),
+        // ),
         centerTitle: true,
-        title: const Text(
-          "Notifications",
-          style: TextStyle(
+        title: Text(
+          "notifications".tr,
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w700,
             fontSize: 20,
@@ -31,9 +31,9 @@ class NotificationsView extends GetView<NotificationsController> {
             onPressed: () {
               controller.clearAll();
             },
-            child: const Text(
-              "CLEAR",
-              style: TextStyle(
+            child: Text(
+              "clear".tr,
+              style: const TextStyle(
                 color: Colors.orange,
                 fontWeight: FontWeight.bold,
               ),
@@ -46,34 +46,34 @@ class NotificationsView extends GetView<NotificationsController> {
         children: [
           _notificationCard(
             icon: Icons.local_car_wash,
-            title: "New Task Assigned",
-            message: "Premium Wash at 5th Ave Mall - Bay 3",
+            title: "new_task_assigned".tr,
+            message: "premium_wash_bay3".tr,
             time: "2m ago",
             unread: true,
           ),
           _notificationCard(
             icon: Icons.chat_bubble_outline,
-            title: "Message from Admin",
-            message: "Please check the inventory for soap supplies before EOD.",
+            title: "message_from_admin".tr,
+            message: "check_inventory_soap".tr,
             time: "12m ago",
             unread: true,
           ),
           _notificationCard(
             icon: Icons.location_on,
-            title: "Task Updated",
-            message: "Location moved to Sector 4 South Entrance",
+            title: "task_updated".tr,
+            message: "location_moved_sector4".tr,
             time: "45m ago",
           ),
           _notificationCard(
             icon: Icons.access_time,
-            title: "Reminder: Upcoming Task",
-            message: "Scheduled start in 15 minutes for Customer #4412",
+            title: "reminder_upcoming_task".tr,
+            message: "scheduled_start_in_15_mins".tr,
             time: "1h ago",
           ),
           const SizedBox(height: 24),
-          const Text(
-            "YESTERDAY",
-            style: TextStyle(
+          Text(
+            "yesterday".tr,
+            style: const TextStyle(
               color: Colors.black54,
               fontWeight: FontWeight.bold,
               letterSpacing: 1,
@@ -82,15 +82,15 @@ class NotificationsView extends GetView<NotificationsController> {
           const SizedBox(height: 12),
           _notificationCard(
             icon: Icons.settings,
-            title: "System Update",
-            message: "Version 2.4.0 is now live. Check the new map features.",
+            title: "system_update".tr,
+            message: "version_240_live".tr,
             time: "20h ago",
           ),
           _notificationCard(
             icon: Icons.payments,
-            title: "Commission Paid",
-            message: "Your earnings for the previous week have been processed.",
-            time: "Yesterday",
+            title: "commission_paid".tr,
+            message: "commission_paid_msg".tr,
+            time: "yesterday".tr,
           ),
         ],
       ),

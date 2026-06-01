@@ -13,13 +13,9 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: Get.back,
-        ),
-        title: const Text(
-          "ChaPasword",
-          style: TextStyle(
+        title: Text(
+          "change_password".tr,
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w700,
           ),
@@ -44,19 +40,19 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
           child: Column(
             children: [
               _passwordField(
-                label: "Current Password",
+                label: "current_password".tr,
                 controller: controller.currentPasswordCtrl,
                 isVisible: controller.showCurrent,
               ),
               const SizedBox(height: 16),
               _passwordField(
-                label: "New Password",
+                label: "new_password".tr,
                 controller: controller.newPasswordCtrl,
                 isVisible: controller.showNew,
               ),
               const SizedBox(height: 16),
               _passwordField(
-                label: "Confirm Password",
+                label: "confirm_password".tr,
                 controller: controller.confirmPasswordCtrl,
                 isVisible: controller.showConfirm,
               ),
@@ -84,9 +80,9 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                               color: Colors.white,
                             ),
                           )
-                        : const Text(
-                            "Update Password",
-                            style: TextStyle(
+                        : Text(
+                            "update_password".tr,
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,

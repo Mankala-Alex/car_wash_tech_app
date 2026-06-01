@@ -16,18 +16,18 @@ class Page3View extends GetView<DashboardController> {
         backgroundColor: AppColors.bgLight,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          "My Profile",
-          style: TextStyle(
+        title: Text(
+          "my_profile".tr,
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w700,
             fontSize: 20,
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Get.back(),
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back, color: Colors.black),
+        //   onPressed: () => Get.back(),
+        // ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -72,7 +72,7 @@ class Page3View extends GetView<DashboardController> {
                 const SizedBox(height: 12),
                 Obx(() => Text(
                       controller.employeeName.value.isEmpty
-                          ? "Technician"
+                          ? "technician".tr
                           : controller.employeeName.value,
                       style: const TextStyle(
                         fontSize: 22,
@@ -96,7 +96,7 @@ class Page3View extends GetView<DashboardController> {
                       const SizedBox(width: 5),
                       Obx(() => Text(
                             controller.designation.value.isEmpty
-                                ? "Technician"
+                                ? "technician".tr
                                 : controller.designation.value.capitalizeFirst!,
                             style: const TextStyle(
                               color: Colors.orange,
@@ -124,14 +124,14 @@ class Page3View extends GetView<DashboardController> {
             // SETTINGS OPTIONS
             // -----------------------------
             _settingsTile(
-              "Change Language",
+              "change_language".tr,
               onTap: () {
                 Get.toNamed(Routes.langChange);
               },
             ),
             const Divider(),
             _settingsTile(
-              "Change Password",
+              "change_password".tr,
               onTap: () {
                 Get.toNamed(Routes.changepassword);
               },
@@ -154,9 +154,9 @@ class Page3View extends GetView<DashboardController> {
                 onPressed: () {
                   Get.dialog(
                     CustomConfirmationDialog(
-                      header: "Logout",
-                      body: "Are you sure you want to logout?",
-                      yesText: "Logout",
+                      header: "logout".tr,
+                      body: "are_you_sure_you_want_to_logout".tr,
+                      yesText: "logout".tr,
                       onYes: () {
                         Get.back();
                         controller.logout();
@@ -165,13 +165,13 @@ class Page3View extends GetView<DashboardController> {
                     barrierDismissible: false,
                   );
                 },
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.logout),
                     SizedBox(width: 8),
                     Text(
-                      "Log Out",
+                      "logout".tr,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -194,19 +194,19 @@ class Page3View extends GetView<DashboardController> {
       children: [
         _statBox(
           value: "4.8",
-          label: "Avg Rating",
+          label: "avg_rating".tr,
           icon: Icons.star,
           iconColor: Colors.orange,
         ),
         const SizedBox(width: 10),
         _statBox(
           value: "124",
-          label: "Jobs Done",
+          label: "jobs_done".tr,
         ),
         const SizedBox(width: 10),
         _statBox(
           value: "98%",
-          label: "On-Time",
+          label: "on_time".tr,
         ),
       ],
     );

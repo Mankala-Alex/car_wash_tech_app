@@ -21,10 +21,10 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
         backgroundColor: AppColors.bgLight,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          "Booking Details",
+        title: Text(
+          "booking_details".tr,
           //"Booking ${booking.bookingCode}",
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
@@ -43,7 +43,7 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
             _vehicleCard(booking),
             const SizedBox(height: 24),
             _imageSection(
-              "Before Wash",
+              "before_wash".tr,
               booking.images
                   .where((e) => e.type == "BEFORE")
                   .map((e) => e.url)
@@ -51,7 +51,7 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
             ),
             const SizedBox(height: 16),
             _videoSection(
-              "Before Wash - Videos",
+              "before_wash_videos".tr,
               booking.videos
                   .where((e) => e.type == "BEFORE")
                   .map((e) => e.url)
@@ -59,7 +59,7 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
             ),
             const SizedBox(height: 24),
             _imageSection(
-              "After Wash",
+              "after_wash".tr,
               booking.images
                   .where((e) => e.type == "AFTER")
                   .map((e) => e.url)
@@ -67,7 +67,7 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
             ),
             const SizedBox(height: 16),
             _videoSection(
-              "After Wash - Videos",
+              "after_wash_videos".tr,
               booking.videos
                   .where((e) => e.type == "AFTER")
                   .map((e) => e.url)
@@ -88,10 +88,10 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
 
     return Row(
       children: [
-        const Expanded(
+        Expanded(
           child: Text(
-            "Job Status",
-            style: TextStyle(
+            "job_status".tr,
+            style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
               color: Colors.black,
@@ -150,9 +150,9 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
                 ),
               ),
               const SizedBox(height: 4),
-              const Text(
-                "Customer",
-                style: TextStyle(color: Colors.black45),
+              Text(
+                "customer".tr,
+                style: const TextStyle(color: Colors.black45),
               ),
             ],
           ),
@@ -167,9 +167,9 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Vehicle Detail",
-            style: TextStyle(
+          Text(
+            "vehicle_detail".tr,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
@@ -208,7 +208,7 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
         SizedBox(
           height: 160,
           child: images.isEmpty
-              ? const Center(child: Text("No images available"))
+              ? Center(child: Text("no_images_available".tr))
               : ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: images.length,
@@ -307,7 +307,7 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
         SizedBox(
           height: 160,
           child: videos.isEmpty
-              ? const Center(child: Text("No videos available"))
+              ? Center(child: Text("no_videos_available".tr))
               : ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: videos.length,
@@ -350,17 +350,17 @@ class ServiceHistoryView extends GetView<ServiceHistoryController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Service Summary",
-            style: TextStyle(
+          Text(
+            "service_summary".tr,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
           const SizedBox(height: 12),
-          _row("Service", booking.serviceName),
-          _row("Amount", "₹ ${booking.amount}"),
-          _row("Status", booking.status),
+          _row("service".tr, booking.serviceName),
+          _row("amount".tr, "₹ ${booking.amount}"),
+          _row("status".tr, booking.status),
         ],
       ),
     );

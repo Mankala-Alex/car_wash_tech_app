@@ -15,17 +15,13 @@ class AllTasksView extends GetView<AllTasksController> {
         backgroundColor: AppColors.bgLight,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          "Today's Tasks",
-          style: TextStyle(
+        title: Text(
+          "todays_tasks".tr,
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Get.back(),
         ),
       ),
       body: Obx(() => ListView.builder(

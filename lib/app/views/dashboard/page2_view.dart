@@ -13,9 +13,9 @@ class Page2View extends GetView<DashboardController> {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
       appBar: AppBar(
-        title: const Text(
-          "Booking History",
-          style: TextStyle(color: Colors.black),
+        title: Text(
+          "booking_history".tr,
+          style: const TextStyle(color: Colors.black),
         ),
         //centerTitle: true,
         backgroundColor: AppColors.bgLight,
@@ -29,7 +29,7 @@ class Page2View extends GetView<DashboardController> {
             child: TextField(
               onChanged: (v) => controller.searchText.value = v,
               decoration: InputDecoration(
-                hintText: "Search by name, service or booking id",
+                hintText: "search_by_name_service_or_booking_id".tr,
                 prefixIcon: const Icon(Icons.search),
                 filled: true,
                 fillColor: Colors.white,
@@ -59,10 +59,10 @@ class Page2View extends GetView<DashboardController> {
           Expanded(
             child: Obx(() {
               if (controller.filteredHistory.isEmpty) {
-                return const Center(
+                return Center(
                   child: Text(
-                    "No history found",
-                    style: TextStyle(color: Colors.black54),
+                    "no_history_found".tr,
+                    style: const TextStyle(color: Colors.black54),
                   ),
                 );
               }
@@ -153,7 +153,7 @@ class Page2View extends GetView<DashboardController> {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "Amount: ₹${booking.amount}",
+                      "amount".tr + ": ₹${booking.amount}",
                       style: const TextStyle(
                         color: AppColors.errorLight,
                         fontSize: 14,
@@ -233,7 +233,7 @@ class Page2View extends GetView<DashboardController> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text("View Details"),
+              child: Text("view_details".tr),
             ),
           ),
         ],

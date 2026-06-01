@@ -53,9 +53,9 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                 // ===============================
                 // TITLE
                 // ===============================
-                const Text(
-                  "Job Completed!",
-                  style: TextStyle(
+                Text(
+                  "job_completed".tr,
+                  style: const TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -64,10 +64,10 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
 
                 const SizedBox(height: 8),
 
-                const Text(
-                  "The service has been successfully\ncompleted.",
+                Text(
+                  "the_service_has_been_successfully_completed".tr,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                     height: 1.3,
                     color: Colors.black54,
@@ -96,9 +96,9 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "JOB SUMMARY",
-                        style: TextStyle(
+                      Text(
+                        "job_summary".tr,
+                        style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w700,
                           color: Colors.black45,
@@ -110,7 +110,7 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                       _summaryRow(
                         icon: Icons.person_rounded,
                         title: controller.booking.customerName,
-                        subtitle: "Customer",
+                        subtitle: "customer".tr,
                       ),
 
                       const Divider(height: 30),
@@ -118,7 +118,7 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                       _summaryRow(
                         icon: Icons.local_car_wash_rounded,
                         title: controller.booking.serviceName,
-                        subtitle: "Service",
+                        subtitle: "service".tr,
                       ),
 
                       const Divider(height: 30),
@@ -126,7 +126,7 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                       _summaryRow(
                         icon: Icons.directions_car_filled_rounded,
                         title: controller.booking.vehicle,
-                        subtitle: "Vehicle",
+                        subtitle: "vehicle".tr,
                       ),
 
                       const SizedBox(height: 20),
@@ -142,13 +142,13 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                         ),
                         child: Row(
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "START TIME",
-                                    style: TextStyle(
+                                    "start_time".tr,
+                                    style: const TextStyle(
                                       color: Colors.black45,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
@@ -178,13 +178,13 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                               height: 30,
                               color: Colors.black12,
                             ),
-                            const Expanded(
+                            Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    "END TIME",
-                                    style: TextStyle(
+                                    "end_time".tr,
+                                    style: const TextStyle(
                                       color: Colors.black45,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
@@ -221,9 +221,9 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                       // --------------------------------
                       Row(
                         children: [
-                          const Text(
-                            "Total Amount",
-                            style: TextStyle(
+                          Text(
+                            "total_amount".tr,
+                            style: const TextStyle(
                               color: Colors.black54,
                               fontSize: 16,
                             ),
@@ -261,9 +261,9 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
-                    child: const Text(
-                      "Back to Dashboard",
-                      style: TextStyle(
+                    child: Text(
+                      "back_to_dashboard".tr,
+                      style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,

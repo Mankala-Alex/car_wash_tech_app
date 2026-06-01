@@ -14,9 +14,9 @@ class LangChangeView extends GetView<LangChangeController> {
         backgroundColor: AppColors.bgLight,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          "Change Language",
-          style: TextStyle(
+        title: Text(
+          "change_language".tr,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
             color: Colors.black,
@@ -31,7 +31,7 @@ class LangChangeView extends GetView<LangChangeController> {
           // ---------------- ENGLISH CARD ----------------
           Obx(() {
             return _languageCard(
-              label: "English",
+              label: "english".tr,
               value: "en",
               isSelected: controller.selectedValue.value == "en",
               onTap: () => controller.selectedValue.value = "en",
@@ -43,7 +43,7 @@ class LangChangeView extends GetView<LangChangeController> {
           // ---------------- ARABIC CARD ----------------
           Obx(() {
             return _languageCard(
-              label: "العربية",
+              label: "arabic".tr,
               value: "ar",
               isSelected: controller.selectedValue.value == "ar",
               onTap: () => controller.selectedValue.value = "ar",

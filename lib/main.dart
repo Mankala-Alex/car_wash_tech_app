@@ -6,6 +6,7 @@ import 'app/config/environment.dart';
 import 'app/helpers/shared_preferences.dart';
 import 'app/routes/app_pages.dart';
 import 'app/theme/app_theme.dart';
+import 'app/localization/localization.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +49,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: Localization(),
+      fallbackLocale: Localization.fallbackLocale,
       title: Environment.appName,
       locale: initialLocale,
       debugShowCheckedModeBanner: false,

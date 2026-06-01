@@ -24,7 +24,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
         height: double.infinity,
         child: Image.asset(
           "assets/car_tech/splash.png",
-          fit: BoxFit.cover, // 👈 fills entire screen
+          fit: BoxFit.cover,
         ),
       ),
     );

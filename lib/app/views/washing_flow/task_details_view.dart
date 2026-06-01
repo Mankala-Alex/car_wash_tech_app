@@ -16,10 +16,10 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
           backgroundColor: AppColors.bgLight,
           elevation: 0,
           automaticallyImplyLeading: false,
-          title: const Center(
+          title: Center(
             child: Text(
-              "Task Details",
-              style: TextStyle(
+              "task_details".tr,
+              style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
@@ -66,9 +66,9 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Vehicle & Service Details",
-                      style: TextStyle(
+                    Text(
+                      "vehicle_service_details".tr,
+                      style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
@@ -91,7 +91,7 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              _kv("Vehicle", controller.booking.vehicle),
+                              _kv("vehicle".tr, controller.booking.vehicle),
                             ],
                           ),
                         ),
@@ -116,10 +116,10 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              _kv("Service", controller.booking.serviceName),
+                              _kv("service".tr, controller.booking.serviceName),
                               const SizedBox(height: 6),
                               _kv(
-                                "Amount",
+                                "amount".tr,
                                 "₹${controller.booking.amount}",
                               ),
                             ],
@@ -139,28 +139,33 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Location",
-                      style: TextStyle(
+                    Text(
+                      "location".tr,
+                      style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Row(
+                    Row(
                       children: [
-                        Icon(Icons.location_on_outlined, color: Colors.blue),
-                        SizedBox(width: 10),
+                        const Icon(Icons.location_on_outlined,
+                            color: Colors.blue),
+                        const SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("123 Main Street",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600)),
-                            SizedBox(height: 3),
-                            Text("San Francisco, CA 94103",
-                                style: TextStyle(color: Colors.black54)),
+                            Text(
+                              "address_line1".tr,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              "address_line2".tr,
+                              style: const TextStyle(color: Colors.black54),
+                            ),
                           ],
                         )
                       ],
@@ -180,9 +185,9 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
                       child: TextButton.icon(
                         onPressed: () {},
                         icon: const Icon(Icons.navigation, color: Colors.blue),
-                        label: const Text(
-                          "Get Directions",
-                          style: TextStyle(color: Colors.blue),
+                        label: Text(
+                          "get_directions".tr,
+                          style: const TextStyle(color: Colors.blue),
                         ),
                       ),
                     )
@@ -199,8 +204,8 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("Total Price",
-                        style: TextStyle(
+                    Text("total_price".tr,
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold)),
                     Text(
                       "₹${controller.booking.amount}",
@@ -236,9 +241,9 @@ class TaskDetailsView extends GetView<TaskDetailsController> {
                   borderRadius: BorderRadius.circular(14),
                 ),
               ),
-              child: const Text(
-                "Start Task",
-                style: TextStyle(
+              child: Text(
+                "start_task".tr,
+                style: const TextStyle(
                   fontSize: 17,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

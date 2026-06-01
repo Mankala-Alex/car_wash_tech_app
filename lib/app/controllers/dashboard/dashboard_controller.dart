@@ -396,6 +396,7 @@ class DashboardController extends GetxController {
     try {
       // Disconnect socket before logout
       socketService.disconnect();
+      _refreshTimer?.cancel();
 
       await authRepo.logoutTechnician();
     } catch (e) {
@@ -409,7 +410,10 @@ class DashboardController extends GetxController {
       );
 
       Get.deleteAll(force: true);
-      Get.offAllNamed(Routes.login);
+
+      if (Get.currentRoute != Routes.login) {
+        Get.offAllNamed(Routes.login);
+      }
     }
   }
 }

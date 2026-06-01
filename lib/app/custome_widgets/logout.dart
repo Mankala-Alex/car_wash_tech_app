@@ -35,6 +35,8 @@ Future<void> deleteDataAndRedirectLoginPage() async {
   // Storage.remove(Storage.mobileNo);
   // Storage.remove(Storage.accountID);
 
-  // Navigate to login page after data deletion
-  Get.offAllNamed(Routes.login);
+  // Prevent redundant navigation during repeated logout calls
+  if (Get.currentRoute != Routes.login) {
+    Get.offAllNamed(Routes.login);
+  }
 }

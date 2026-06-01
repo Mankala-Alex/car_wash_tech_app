@@ -17,9 +17,9 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
           backgroundColor: AppColors.bgLight,
           elevation: 0.4,
           automaticallyImplyLeading: false,
-          title: const Text(
-            "Payment",
-            style: TextStyle(
+          title: Text(
+            "payment".tr,
+            style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w600,
             ),
@@ -51,16 +51,16 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                   child: Column(
                     children: [
                       Text(
-                        "Customer: ${controller.booking.customerName}",
+                        "${'customer'.tr}: ${controller.booking.customerName}",
                         style: const TextStyle(
                           fontSize: 15,
                           color: Colors.black,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      const Text(
-                        "Amount to Collect",
-                        style: TextStyle(
+                      Text(
+                        "amount_to_collect".tr,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 13,
                         ),
@@ -86,8 +86,8 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                         ),
                         child: Text(
                           controller.isPaid.value
-                              ? "Payment Completed"
-                              : "Payment Pending",
+                              ? "payment_completed".tr
+                              : "payment_pending".tr,
                           style: TextStyle(
                             color: controller.isPaid.value
                                 ? AppColors.textWhiteLight
@@ -123,28 +123,29 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Title Row
-                    const Row(
+                    Row(
                       children: [
-                        Icon(Icons.qr_code_rounded,
+                        const Icon(Icons.qr_code_rounded,
                             size: 22, color: Colors.black),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Text(
-                          "UPI Payment",
-                          style: TextStyle(
+                          "upi_payment".tr,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
                           ),
                         ),
-                        Spacer(),
-                        Icon(Icons.volume_up_rounded,
+                        const Spacer(),
+                        const Icon(Icons.volume_up_rounded,
                             size: 22, color: Colors.grey),
                       ],
                     ),
 
                     const SizedBox(height: 4),
-                    const Text(
-                      "Scan QR to pay",
-                      style: TextStyle(color: Colors.black54, fontSize: 13),
+                    Text(
+                      "scan_qr_to_pay".tr,
+                      style:
+                          const TextStyle(color: Colors.black54, fontSize: 13),
                     ),
 
                     const SizedBox(height: 18),
@@ -163,9 +164,9 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
 
                     const SizedBox(height: 18),
 
-                    const Text(
-                      "UPI ID",
-                      style: TextStyle(
+                    Text(
+                      "upi_id".tr,
+                      style: const TextStyle(
                         fontSize: 13,
                         color: Colors.black54,
                       ),
@@ -180,9 +181,9 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                         color: AppColors.borderLightGrayLight,
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Expanded(
+                          const Expanded(
                             child: Text(
                               "john.doe@upi",
                               style: TextStyle(
@@ -192,16 +193,16 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                               ),
                             ),
                           ),
-                          Icon(Icons.copy, color: Colors.black87),
+                          const Icon(Icons.copy, color: Colors.black87),
                         ],
                       ),
                     ),
 
                     const SizedBox(height: 10),
-                    const Center(
+                    Center(
                       child: Text(
-                        "Supported by GPay, PhonePe, Paytm",
-                        style: TextStyle(
+                        "supported_by_gpay_phonepe_paytm".tr,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
@@ -241,9 +242,7 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                       ),
                     ),
                     child: Text(
-                      controller.isPaid.value
-                          ? "Cash Received ✓"
-                          : "Cash Received  💵",
+                      "cash_received".tr,
                       style: TextStyle(
                         color: controller.isPaid.value
                             ? Colors.green
@@ -276,9 +275,9 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                   ),
                   child: controller.isLoading.value
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text(
-                          "Proceed to Summary",
-                          style: TextStyle(
+                      : Text(
+                          "proceed_to_summary".tr,
+                          style: const TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,

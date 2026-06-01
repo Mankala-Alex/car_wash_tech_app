@@ -12,8 +12,10 @@ class LoginPageView extends GetView<LoginController> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +50,7 @@ class LoginPageView extends GetView<LoginController> {
               // -----------------------------
               Center(
                 child: Text(
-                  "Welcome Back",
+                  "welcome_back".tr,
                   style: textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -60,7 +62,7 @@ class LoginPageView extends GetView<LoginController> {
 
               Center(
                 child: Text(
-                  "Enter your credentials to access the\ntechnician portal.",
+                  "enter_your_credentials_to_login_into_the_technician_app".tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.grey[600],
@@ -76,7 +78,7 @@ class LoginPageView extends GetView<LoginController> {
               // Employee ID
               // -----------------------------
               Text(
-                "Employee ID",
+                "employee_id".tr,
                 style: textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
@@ -88,7 +90,7 @@ class LoginPageView extends GetView<LoginController> {
                 controller: controller.employeeIdController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.badge_rounded),
-                  hintText: "Enter your Employee ID",
+                  hintText: "enter_your_employee_id".tr,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
@@ -101,33 +103,31 @@ class LoginPageView extends GetView<LoginController> {
               // Password
               // -----------------------------
               Text(
-                "Password",
+                "password".tr,
                 style: textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
                 ),
               ),
               const SizedBox(height: 10),
-              Obx(
-                () => TextField(
-                  controller: controller.passwordController,
-                  obscureText: !controller.showPassword.value,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.lock_rounded),
-                    suffixIcon: IconButton(
+              TextField(
+                controller: controller.passwordController,
+                obscureText: !controller.showPassword.value,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock_rounded),
+                  suffixIcon: Obx(
+                    () => IconButton(
                       icon: Icon(
                         controller.showPassword.value
                             ? Icons.visibility
                             : Icons.visibility_off,
                       ),
-                      onPressed: () {
-                        controller.showPassword.toggle();
-                      },
+                      onPressed: controller.showPassword.toggle,
                     ),
-                    hintText: "Enter your password",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
+                  ),
+                  hintText: "enter_your_password".tr,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
               ),
@@ -138,7 +138,7 @@ class LoginPageView extends GetView<LoginController> {
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  "Forgot Password?",
+                  "forgot_password".tr,
                   style: TextStyle(
                     color: Colors.blue[700],
                     fontWeight: FontWeight.w600,
@@ -165,9 +165,9 @@ class LoginPageView extends GetView<LoginController> {
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  child: const Text(
-                    "Login",
-                    style: TextStyle(
+                  child: Text(
+                    "login".tr,
+                    style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,

@@ -21,9 +21,9 @@ class CarStatusView extends GetView<CarStatusController> {
           elevation: 0,
           automaticallyImplyLeading: false,
           centerTitle: true,
-          title: const Text(
-            "Car Inspection",
-            style: TextStyle(
+          title: Text(
+            "car_inspection".tr,
+            style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
@@ -47,17 +47,17 @@ class CarStatusView extends GetView<CarStatusController> {
                 ),
                 child: Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Service Package",
-                              style: TextStyle(
+                          Text("service_package".tr,
+                              style: const TextStyle(
                                   fontSize: 13, color: Colors.black54)),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text(
-                            "Premium Interior & Exterior",
-                            style: TextStyle(
+                            "premium_interior_exterior".tr,
+                            style: const TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -76,18 +76,18 @@ class CarStatusView extends GetView<CarStatusController> {
                 ),
               ),
               const SizedBox(height: 24),
-              const Text(
-                "Before Wash",
-                style: TextStyle(
+              Text(
+                "before_wash".tr,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
-                "Capture existing damage or dirt levels before starting.",
-                style: TextStyle(color: Colors.black54),
+              Text(
+                "capture_existing_damage_or_dirt_levels_before_starting".tr,
+                style: const TextStyle(color: Colors.black54),
               ),
               const SizedBox(height: 16),
               Obx(() => SizedBox(
@@ -121,18 +121,18 @@ class CarStatusView extends GetView<CarStatusController> {
                     ),
                   )),
               const SizedBox(height: 30),
-              const Text(
-                "After Wash",
-                style: TextStyle(
+              Text(
+                "after_wash".tr,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
-                "Show completed work to verify quality.",
-                style: TextStyle(color: Colors.black54),
+              Text(
+                "show_completed_work_to_verify_quality".tr,
+                style: const TextStyle(color: Colors.black54),
               ),
               const SizedBox(height: 16),
               Obx(() => SizedBox(
@@ -191,9 +191,9 @@ class CarStatusView extends GetView<CarStatusController> {
                 ),
                 child: controller.isLoading.value
                     ? const CircularProgressIndicator(color: Colors.white)
-                    : const Text(
-                        "Continue",
-                        style: TextStyle(
+                    : Text(
+                        "continue".tr,
+                        style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
@@ -299,19 +299,19 @@ class CarStatusView extends GetView<CarStatusController> {
             width: 1.5,
           ),
         ),
-        child: const Center(
+        child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.camera_alt, color: Colors.black45, size: 35),
-              SizedBox(height: 6),
+              const Icon(Icons.camera_alt, color: Colors.black45, size: 35),
+              const SizedBox(height: 6),
               Text(
-                "Add Photo",
-                style: TextStyle(color: Colors.black87),
+                "add_photo".tr,
+                style: const TextStyle(color: Colors.black87),
               ),
               Text(
-                "Camera or Gallery",
-                style: TextStyle(color: Colors.black45, fontSize: 12),
+                "camera_or_gallery".tr,
+                style: const TextStyle(color: Colors.black45, fontSize: 12),
               ),
             ],
           ),

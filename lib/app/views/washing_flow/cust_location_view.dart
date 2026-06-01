@@ -24,19 +24,15 @@ class CustLocationView extends GetView<CustLocationController> {
           backgroundColor: AppColors.bgLight,
           elevation: 0,
           automaticallyImplyLeading: false,
-          title: const Text(
-            "Customer Location",
-            style: TextStyle(
+          title: Text(
+            "customer_location".tr,
+            style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
           ),
           centerTitle: true,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-          ),
         ),
 
         // -----------------------------
@@ -65,29 +61,29 @@ class CustLocationView extends GetView<CustLocationController> {
                           color: Colors.blue, size: 24),
                     ),
                     const SizedBox(width: 14),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "John Appleseed",
-                            style: TextStyle(
+                            controller.booking.customerName,
+                            style: const TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
-                            "123 Main Street, Anytown, CA 91234",
-                            style: TextStyle(
+                            "address_line1".tr,
+                            style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black54,
                             ),
                           ),
-                          SizedBox(height: 6),
+                          const SizedBox(height: 6),
                           Text(
-                            "Premium Exterior Wash",
-                            style: TextStyle(
+                            controller.booking.serviceName,
+                            style: const TextStyle(
                               color: Colors.blue,
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
@@ -141,9 +137,9 @@ class CustLocationView extends GetView<CustLocationController> {
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  label: const Text(
-                    "Navigate",
-                    style: TextStyle(
+                  label: Text(
+                    "navigate".tr,
+                    style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -169,7 +165,7 @@ class CustLocationView extends GetView<CustLocationController> {
                     elevation: 0,
                     outerColor: AppColors.primaryLight,
                     innerColor: AppColors.secondaryLight,
-                    text: "I've Arrived",
+                    text: "ive_arrived".tr,
                     textStyle: const TextStyle(
                       color: AppColors.bgBlackLight,
                       fontSize: 16,
@@ -184,7 +180,7 @@ class CustLocationView extends GetView<CustLocationController> {
                       await controller.markArrived();
 
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Arrived confirmed")),
+                        SnackBar(content: Text("arrived_confirmed".tr)),
                       );
 
                       await Future.delayed(const Duration(seconds: 1));
