@@ -153,7 +153,7 @@ class Page2View extends GetView<DashboardController> {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "amount".tr + ": ₹${booking.amount}",
+                      "${"amount".tr}: ₹${booking.amount}",
                       style: const TextStyle(
                         color: AppColors.errorLight,
                         fontSize: 14,

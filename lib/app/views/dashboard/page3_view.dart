@@ -168,11 +168,11 @@ class Page3View extends GetView<DashboardController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.logout),
-                    SizedBox(width: 8),
+                    const Icon(Icons.logout),
+                    const SizedBox(width: 8),
                     Text(
                       "logout".tr,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),

@@ -14,6 +14,14 @@ class BookingModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int slotId;
+  final double? latitude;
+  final double? longitude;
+
+  final String? formattedAddress;
+  final String? address;
+  final String? houseNumber;
+  final String? landmark;
+  final String? addressLabel;
 
   // For Future (Before / After Images)
   final List<String>? beforeImages;
@@ -41,6 +49,13 @@ class BookingModel {
     this.afterImages,
     this.beforeVideos,
     this.afterVideos,
+    this.latitude,
+    this.longitude,
+    this.formattedAddress,
+    this.address,
+    this.houseNumber,
+    this.landmark,
+    this.addressLabel,
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
@@ -72,6 +87,17 @@ class BookingModel {
       afterVideos: json["after_videos"] == null
           ? []
           : List<String>.from(json["after_videos"]),
+      latitude: json["latitude"] != null
+          ? (json["latitude"] as num).toDouble()
+          : null,
+      longitude: json["longitude"] != null
+          ? (json["longitude"] as num).toDouble()
+          : null,
+      formattedAddress: json["formatted_address"],
+      address: json["address"],
+      houseNumber: json["house_number"],
+      landmark: json["landmark"],
+      addressLabel: json["address_label"],
     );
   }
 }

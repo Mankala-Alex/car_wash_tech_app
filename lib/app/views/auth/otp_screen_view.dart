@@ -58,7 +58,7 @@ class _OtpScreenViewState extends State<OtpScreenView> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 45),
+                            margin: const EdgeInsets.only(top: 45),
                             padding: EdgeInsets.symmetric(
                               horizontal: screenWidth * 0.10,
                             ),

@@ -154,8 +154,8 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                  SizedBox(height: 6),
-                                  Row(
+                                  const SizedBox(height: 6),
+                                  const Row(
                                     children: [
                                       Icon(Icons.access_time,
                                           size: 16, color: Colors.black54),
@@ -190,8 +190,8 @@ class TaskCompletedView extends GetView<TaskCompletedController> {
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                  SizedBox(height: 6),
-                                  Row(
+                                  const SizedBox(height: 6),
+                                  const Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(

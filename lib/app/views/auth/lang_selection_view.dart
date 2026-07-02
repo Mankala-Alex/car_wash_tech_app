@@ -97,7 +97,7 @@ class LangSelectionView extends GetView<LangSelectionController> {
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            SizedBox(height: 3),
+                            const SizedBox(height: 3),
                             Text(
                               "english".tr,
                               style: const TextStyle(
@@ -152,14 +152,14 @@ class LangSelectionView extends GetView<LangSelectionController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "العربية",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            SizedBox(height: 3),
+                            const SizedBox(height: 3),
                             Text(
                               "arabic".tr,
                               style: const TextStyle(

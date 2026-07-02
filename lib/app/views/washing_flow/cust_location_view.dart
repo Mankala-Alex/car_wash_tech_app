@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:car_wash_technician/app/controllers/washing_flow/cust_location_controller.dart';
 import 'package:car_wash_technician/app/theme/app_theme.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 
 class CustLocationView extends GetView<CustLocationController> {
@@ -74,12 +75,26 @@ class CustLocationView extends GetView<CustLocationController> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            "address_line1".tr,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black54,
-                            ),
+                            controller.booking.formattedAddress ??
+                                controller.booking.address ??
+                                "No Address",
                           ),
+                          if (controller.booking.houseNumber != null)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Text(
+                                "House No: ${controller.booking.houseNumber}",
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ),
+                          if (controller.booking.landmark != null)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Text(
+                                "Landmark: ${controller.booking.landmark}",
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ),
                           const SizedBox(height: 6),
                           Text(
                             controller.booking.serviceName,
@@ -101,13 +116,30 @@ class CustLocationView extends GetView<CustLocationController> {
               // ---------------------------------
               // MAP IMAGE
               // ---------------------------------
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  "assets/car_tech/map.png",
-                  height: 260,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+              Obx(
+                () => SizedBox(
+                  height: 320,
+                  child: GoogleMap(
+                    onMapCreated: (GoogleMapController mapController) {
+                      controller.mapController = mapController;
+
+                      Future.delayed(
+                        const Duration(milliseconds: 500),
+                        () => controller.updateCamera(),
+                      );
+                    },
+                    initialCameraPosition: CameraPosition(
+                      target: controller.customerLocation.value ??
+                          const LatLng(17.4065, 78.4772),
+                      zoom: 15,
+                    ),
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: true,
+                    markers: controller.markers.value,
+                    zoomControlsEnabled: true,
+                    mapToolbarEnabled: false,
+                    compassEnabled: true,
+                  ),
                 ),
               ),
 
@@ -130,7 +162,7 @@ class CustLocationView extends GetView<CustLocationController> {
                 height: 55,
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.navigation, color: Colors.white),
-                  onPressed: () {},
+                  onPressed: controller.openGoogleMapsNavigation,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.secondaryLight,
                     shape: RoundedRectangleBorder(

@@ -1,5 +1,6 @@
 {
-    "APP_NAME":"My APP",
-    "IS_PRODUCTION":false,
-    "API_BASE_URL": "https://www.aguawash.com/api/"
+    "APP_NAME": "My APP",
+    "IS_PRODUCTION": false,
+    "API_BASE_URL": "https://www.aguawash.com/api/",
+    "GOOGLE_MAPS_API_KEY": "AIzaSyANAQJobBddB0gkR2WJ2IanNnKaEK8Ee48"
 }

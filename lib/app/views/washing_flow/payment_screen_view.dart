@@ -181,9 +181,9 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                         color: AppColors.borderLightGrayLight,
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Text(
                               "john.doe@upi",
                               style: TextStyle(
@@ -193,7 +193,7 @@ class PaymentScreenView extends GetView<PaymentScreenController> {
                               ),
                             ),
                           ),
-                          const Icon(Icons.copy, color: Colors.black87),
+                          Icon(Icons.copy, color: Colors.black87),
                         ],
                       ),
                     ),
