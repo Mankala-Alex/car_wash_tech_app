@@ -17,6 +17,8 @@ class CustLocationController extends GetxController {
 
   GoogleMapController? mapController;
 
+  final isRouteLoading = true.obs;
+
   final technicianLocation = Rxn<LatLng>();
 
   final customerLocation = Rxn<LatLng>();
@@ -138,6 +140,7 @@ class CustLocationController extends GetxController {
   }
 
   Future<void> getNavigationRoute() async {
+    isRouteLoading.value = true;
     try {
       if (technicianLocation.value == null || customerLocation.value == null) {
         return;
@@ -163,7 +166,10 @@ class CustLocationController extends GetxController {
       durationText.value = "${(seconds / 60).round()} mins";
 
       _drawPolyline(data["coordinates"]);
+
+      isRouteLoading.value = false;
     } catch (e) {
+      isRouteLoading.value = false;
       print(e);
     }
   }
