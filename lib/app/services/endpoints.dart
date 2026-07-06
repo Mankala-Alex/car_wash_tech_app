@@ -12,4 +12,5 @@ class EndPoints {
   static const apiPostChangePassword = 'employee/change-password';
   static const apiTechnicianLogout = 'employee/logout';
   static const apiPostUploadImages = 'employee/bookings/upload-images';
+  static const apiPostnavigationroute = 'employee/navigation/route';
 }

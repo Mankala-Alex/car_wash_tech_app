@@ -1,6 +1,6 @@
 // my_new_app/lib/app/views/splash_screen_view.dart
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../controllers/splash_screen_controller.dart';
 import '../theme/app_theme.dart';
 

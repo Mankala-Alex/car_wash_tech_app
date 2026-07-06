@@ -59,4 +59,12 @@ class BookingsRepository {
       requireAuthToken: true, // ✅
     );
   }
+
+  Future<Response> postNavigationRoute(Map<String, dynamic> body) async {
+    return await ApiService.post(
+      EndPoints.apiPostnavigationroute,
+      body,
+      requireAuthToken: true,
+    );
+  }
 }

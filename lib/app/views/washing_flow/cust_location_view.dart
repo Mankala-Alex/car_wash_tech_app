@@ -112,7 +112,12 @@ class CustLocationView extends GetView<CustLocationController> {
               ),
 
               const SizedBox(height: 20),
-
+              Obx(
+                () => Text(controller.distanceText.value),
+              ),
+              Obx(
+                () => Text(controller.durationText.value),
+              ),
               // ---------------------------------
               // MAP IMAGE
               // ---------------------------------
@@ -136,6 +141,7 @@ class CustLocationView extends GetView<CustLocationController> {
                     myLocationEnabled: true,
                     myLocationButtonEnabled: true,
                     markers: controller.markers.value,
+                    polylines: controller.polylines.value,
                     zoomControlsEnabled: true,
                     mapToolbarEnabled: false,
                     compassEnabled: true,
